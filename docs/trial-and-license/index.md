@@ -1,6 +1,6 @@
 # Trial and license
 
-VMBridge is a one-time purchase of $10 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json and in the macOS login Keychain. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it.
+VMBridge is a one-time purchase of $9.99 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json and in the macOS login Keychain. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it.
 
 ## After you buy
 

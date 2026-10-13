@@ -37,7 +37,7 @@ TRADEMARK = (
     "Parallels International GmbH. VMPal is a product of TablePlus. "
     "VMBridge is not affiliated with TablePlus."
 )
-PRICE = "10"
+PRICE = "9.99"
 UPDATED = "2026-10-13"
 
 # 5x7 glyphs. Rows are left to right, "1" is ink.
@@ -242,7 +242,7 @@ def write_og(path: Path) -> None:
         (268, 5, "FOR PARALLELS DESKTOP", muted),
         (360, 6, "LET YOUR AI AGENT DRIVE", cream),
         (430, 6, "PARALLELS DESKTOP VMS", cream),
-        (520, 5, "$10 ONCE  ·  7-DAY TRIAL", gold),
+        (520, 5, "$9.99 ONCE  ·  7-DAY TRIAL", gold),
     ]
     for y, scale, text, color in lines:
         _blit(buf, width, height, text, _centered(text, width, scale), y, scale, color)
@@ -342,7 +342,7 @@ That installs `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are the same
 
 ## Start the trial
 
-Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The intended price after the trial is $10 once. The Lemon Squeezy link on the site is a checkout placeholder until the store ids are set. It is not a live store.
+Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The intended price after the trial is $9.99 once. The Lemon Squeezy link on the site is a checkout placeholder until the store ids are set. It is not a live store.
 
 ## Connect Claude Code, Codex, or Cursor
 
@@ -392,7 +392,7 @@ The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME 
 """,
     "trial-and-license": """# Trial and license
 
-VMBridge is a one-time purchase of $10 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json and in the macOS login Keychain. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it.
+VMBridge is a one-time purchase of $9.99 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json and in the macOS login Keychain. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it.
 
 ## After you buy
 
@@ -437,7 +437,7 @@ def pages() -> list[dict[str, object]]:
     faqs = [
         (
             "What is VMBridge?",
-            "VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $10 once, with a 7-day full-featured free trial.",
+            "VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $9.99 once, with a 7-day full-featured free trial.",
         ),
         (
             "Does VMBridge replace Parallels Desktop?",
@@ -448,7 +448,7 @@ def pages() -> list[dict[str, object]]:
             "Run vmbridge connect claude-code on the Mac. Claude Code then talks to the VMBridge MCP server. The agent sees the guest screen and uses the guest keyboard and mouse. It does not drive your Mac desktop.",
         ),
         (
-            "What does the $10 purchase include?",
+            "What does the $9.99 purchase include?",
             "A one-time license key for VMBridge, not a subscription. The 7-day trial is full-featured and starts at first launch. A validated key keeps working for 14 days without reaching the license server. The checkout on this site is a Lemon Squeezy placeholder until the store ids are set.",
         ),
         (
@@ -471,7 +471,7 @@ def pages() -> list[dict[str, object]]:
             "nav": "VMBridge",
             "in_nav": False,
             "title": "VMBridge for Parallels Desktop — let your AI agent drive VMs",
-            "description": "Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $10 one-time, with a 7-day full-featured free trial. Works with Claude Code, Codex, and Cursor.",
+            "description": "Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $9.99 one-time, with a 7-day full-featured free trial. Works with Claude Code, Codex, and Cursor.",
             "h1": "Let your AI agent drive Parallels Desktop VMs",
             "kind": "home",
             "faqs": home_faqs,
@@ -521,17 +521,17 @@ def pages() -> list[dict[str, object]]:
             "nav": "Pricing",
             "in_nav": True,
             "title": "VMBridge pricing",
-            "description": "VMBridge is a $10 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Lemon Squeezy.",
+            "description": "VMBridge is a $9.99 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Lemon Squeezy.",
             "h1": "Pricing",
             "kind": "pricing",
-            "lead": "VMBridge is sold as a one-time purchase of $10, with a 7-day full-featured free trial.",
+            "lead": "VMBridge is sold as a one-time purchase of $9.99, with a 7-day full-featured free trial.",
         },
         {
             "slug": "faq",
             "nav": "FAQ",
             "in_nav": True,
             "title": "VMBridge FAQ",
-            "description": "Answers about VMBridge for Parallels Desktop: the MCP server, the $10 license, the 7-day trial, Claude Code, the DMG, privacy, and how it differs from VMPal.",
+            "description": "Answers about VMBridge for Parallels Desktop: the MCP server, the $9.99 license, the 7-day trial, Claude Code, the DMG, privacy, and how it differs from VMPal.",
             "h1": "Questions about VMBridge",
             "kind": "faq",
             "faqs": faqs,
@@ -600,7 +600,7 @@ def software(base: str) -> dict[str, object]:
             "price": PRICE,
             "priceCurrency": "USD",
             "url": abs_url(base, "pricing"),
-            "description": "One-time purchase of $10 with a 7-day full-featured free trial. Not a subscription.",
+            "description": "One-time purchase of $9.99 with a 7-day full-featured free trial. Not a subscription.",
         },
     }
 
@@ -705,7 +705,7 @@ def cta_block(checkout: str) -> str:
     return f"""
 <div class="cta">
 <a class="button" href="{esc(RELEASES_URL)}">Download DMG</a>
-<a class="button ghost" href="{esc(checkout)}">Buy for $10</a>
+<a class="button ghost" href="{esc(checkout)}">Buy for $9.99</a>
 </div>
 <p class="fine">The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. The buy button is a Lemon Squeezy checkout placeholder, not a live store.</p>
 """
@@ -713,7 +713,7 @@ def cta_block(checkout: str) -> str:
 
 def pricing_body(checkout: str) -> str:
     return f"""
-<p>The intended price is <strong>$10 USD, paid once</strong>. It is not a subscription. A full-featured trial lasts <strong>7 days</strong> from the first launch on that Mac.</p>
+<p>The intended price is <strong>$9.99 USD, paid once</strong>. It is not a subscription. A full-featured trial lasts <strong>7 days</strong> from the first launch on that Mac.</p>
 {cta_block(checkout)}
 <ul>
 <li>The trial clock is stored in the macOS login Keychain and in a file in Application Support. Removing only one copy does not start the trial over.</li>
@@ -754,7 +754,7 @@ def home_body(checkout: str) -> str:
 <ul class="facts">
 <li>macOS 14 or later</li>
 <li>Parallels Desktop Pro or Business</li>
-<li>$10 once</li>
+<li>$9.99 once</li>
 <li>7-day full-featured free trial</li>
 </ul>
 {cta_block(checkout)}
@@ -820,7 +820,7 @@ def legal_body(slug: str) -> str:
         return f"""
 <p class="banner"><strong>Draft. Not legal advice.</strong> This license has not been reviewed by a lawyer. Do not treat this page as the terms of a sale, and do not ship it to customers until counsel has reviewed it.</p>
 <p>The current draft is the <a href="{esc(LICENSE_URL)}">LICENSE</a> file in the source repository ({esc(SOURCE_REPO)}). Copyright 2026 Alex Chadwick. Portions derived from parallels-pro-mcp-server remain under the MIT License, copyright Jarod Wong. That notice is in LICENSES/MIT-upstream and THIRD_PARTY_NOTICES.</p>
-<p>The draft describes a one-time purchase at an intended price of $10 and a 7-day full-featured trial. It is not in force for customers while the store is unconfigured and the text is still marked draft. The buy button on this site is a Lemon Squeezy checkout placeholder.</p>
+<p>The draft describes a one-time purchase at an intended price of $9.99 and a 7-day full-featured trial. It is not in force for customers while the store is unconfigured and the text is still marked draft. The buy button on this site is a Lemon Squeezy checkout placeholder.</p>
 <p><a href="{esc(LICENSE_URL)}">Read the draft EULA</a></p>
 """
     return f"""
@@ -835,7 +835,7 @@ def docs_index() -> str:
     items = [
         ("quickstart", "Quickstart", "Install, connect Claude Code, Codex, or Cursor, and stop the agent."),
         ("install", "Install", "The vmbridge command and where settings are stored."),
-        ("trial-and-license", "Trial and license", "The 7-day trial, the $10 key, and the store settings."),
+        ("trial-and-license", "Trial and license", "The 7-day trial, the $9.99 key, and the store settings."),
         ("mcp-tools", "MCP tools", "What an agent can call, and what VMBridge does not do."),
     ]
     lis = []
@@ -1077,7 +1077,7 @@ def llms_txt(base: str) -> str:
     lines = [
         "# VMBridge",
         "",
-        "> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $10 USD once, with a 7-day full-featured free trial. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.",
+        "> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $9.99 USD once, with a 7-day full-featured free trial. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.",
         "",
         "The command is `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases. Default site: "
         + DEFAULT_BASE
@@ -1097,7 +1097,7 @@ def llms_txt(base: str) -> str:
         "## Docs (Markdown)",
         f"- [Quickstart]({abs_url(base, 'docs/quickstart')}index.md): install and connect an agent.",
         f"- [Install]({abs_url(base, 'docs/install')}index.md): install the vmbridge command.",
-        f"- [Trial and license]({abs_url(base, 'docs/trial-and-license')}index.md): $10 one-time and the 7-day trial.",
+        f"- [Trial and license]({abs_url(base, 'docs/trial-and-license')}index.md): $9.99 one-time and the 7-day trial.",
         f"- [MCP tools]({abs_url(base, 'docs/mcp-tools')}index.md): what an agent can call.",
         f"- [Full text]({base}/llms-full.txt): quotable summary of the product, price, trial, and VMPal comparison.",
         "",
@@ -1118,7 +1118,7 @@ def llms_full(base: str) -> str:
         "",
         "Hero: Let your AI agent drive Parallels Desktop VMs.",
         "",
-        "Price: $10 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. License checks use the Lemon Squeezy License API and do not require a store API secret in the app. The public checkout URL is a placeholder until VMBRIDGE_CHECKOUT_URL and the Lemon product ids are set. The license text is a draft and is not legal advice.",
+        "Price: $9.99 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. License checks use the Lemon Squeezy License API and do not require a store API secret in the app. The public checkout URL is a placeholder until VMBRIDGE_CHECKOUT_URL and the Lemon product ids are set. The license text is a draft and is not legal advice.",
         "",
         "Host requirements: macOS 14 or later, Parallels Desktop Pro or Business. The command is vmbridge. Works with Claude Code, Codex, Cursor, and other MCP clients.",
         "",
