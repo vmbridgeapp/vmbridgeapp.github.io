@@ -39,6 +39,8 @@ jobs:
             fi
             cat site/gen/part* | base64 -d | gzip -d > site/build_site.py
           fi
+          # Older copies of this generator still say $10. The price is $9.99.
+          sed -i 's/\$10/$9.99/g; s/PRICE = "10"/PRICE = "9.99"/' site/build_site.py
           python3 site/build_site.py --out /tmp/vmbridge-site
           python3 - << 'PY'
           import shutil
