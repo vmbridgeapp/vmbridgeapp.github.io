@@ -1,0 +1,39 @@
+# Rewrite the PNG assets after a text publish.
+# GitHub's create-file API stores bodies as text, which corrupts PNG bytes.
+# This job writes the same icon and Open Graph image as site/build_site.py
+# and commits them. A commit that only touches those PNGs does not re-run.
+
+name: Write site images
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - "assets/icon.png"
+      - "assets/og.png"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  images:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v4
+
+      - name: Write icon and Open Graph image
+        run: python3 .github/scripts/write_images.py
+
+      - name: Commit images when they changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/icon.png assets/og.png
+          if git diff --cached --quiet; then
+            echo "Images already match the generator."
+            exit 0
+          fi
+          git commit -m "Write the icon and Open Graph image."
+          git push
