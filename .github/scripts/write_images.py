@@ -174,7 +174,7 @@ def write_og(path: Path) -> None:
         (268, 5, "FOR PARALLELS DESKTOP", muted),
         (360, 6, "LET YOUR AI AGENT DRIVE", cream),
         (430, 6, "PARALLELS DESKTOP VMS", cream),
-        (520, 5, "$10 ONCE  \u00b7  7-DAY TRIAL", gold),
+        (520, 5, "$9.99 ONCE  \u00b7  7-DAY TRIAL", gold),
     ]
     for y, scale, text, color in lines:
         _blit(buf, width, height, text, _centered(text, width, scale), y, scale, color)
