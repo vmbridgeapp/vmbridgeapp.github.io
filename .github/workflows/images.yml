@@ -24,13 +24,17 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Write icon and Open Graph image
-        run: python3 .github/scripts/write_images.py
+        run: |
+          set -euo pipefail
+          # Older copies of this script still print $10. The price is $9.99.
+          sed -i 's/\$10/$9.99/g' .github/scripts/write_images.py
+          python3 .github/scripts/write_images.py
 
       - name: Commit images when they changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/icon.png assets/og.png
+          git add assets/icon.png assets/og.png .github/scripts/write_images.py
           if git diff --cached --quiet; then
             echo "Images already match the generator."
             exit 0
