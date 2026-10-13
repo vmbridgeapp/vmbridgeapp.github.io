@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP server for Parallels Desktop</title>
+<meta name="description" content="VMBridge is an MCP server for Parallels Desktop. Agents see the VM screen, type, click, run commands, and move files without touching the Mac desktop.">
+<link rel="canonical" href="https://vmbridgeapp.github.io/mcp-server-for-parallels-desktop/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="MCP server for Parallels Desktop">
+<meta property="og:description" content="VMBridge is an MCP server for Parallels Desktop. Agents see the VM screen, type, click, run commands, and move files without touching the Mac desktop.">
+<meta property="og:url" content="https://vmbridgeapp.github.io/mcp-server-for-parallels-desktop/">
+<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="MCP server for Parallels Desktop">
+<meta name="twitter:description" content="VMBridge is an MCP server for Parallels Desktop. Agents see the VM screen, type, click, run commands, and move files without touching the Mac desktop.">
+<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridgeapp.github.io/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp",
+        "https://github.com/AlexmChadwick/Parallels-Agents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridgeapp.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "MCP server for Parallels Desktop",
+          "item": "https://vmbridgeapp.github.io/mcp-server-for-parallels-desktop/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../">
+<img src="../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../vs-vmpal/">vs VMPal</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>MCP server for Parallels Desktop</span></nav>
+<h1>MCP server for Parallels Desktop</h1>
+<p class="lede">VMBridge is an MCP server that lets an AI agent drive a Parallels Desktop virtual machine.</p>
+
+<p>An MCP server is the process an AI agent starts when it needs tools. VMBridge is that process for Parallels Desktop. The agent calls tools. VMBridge talks to Parallels. The guest's screen, keyboard, and mouse are what the agent uses.</p>
+<h2>What the server exposes</h2>
+<p>Screenshots come back with a coordinate map. OCR reads text on the screen. Clicks, typing, scrolling, and drags go through the Parallels Virtualization SDK, so the Mac does not ask for Accessibility or Screen Recording permission. Commands and files use Parallels Tools inside the guest.</p>
+<ul>
+<li>Window list and focus, open an app or a URL, search files by name.</li>
+<li>Start, stop, pause, suspend, resume, restart, clone, create, and delete a VM.</li>
+<li>Snapshots, sign-in at the lock screen, clipboard, and an activity log.</li>
+</ul>
+<h2>Where it listens</h2>
+<p>On the Mac, the agent launches <code>vmbridge</code> over stdio. For an agent inside a VM, a daemon listens on 127.0.0.1 and on the Mac's address on the Parallels Shared and Host-Only networks. The default is not every interface on the Mac. A token for one VM is accepted only from that VM.</p>
+<p><code>parallels-pro-mcp</code> and <code>guest-vm-agents</code> start the same server.</p>
+<p>Related: <a href="../claude-code-control-a-vm/">Claude Code control a VM</a>, <a href="../ai-agent-virtual-machine-mac/">an AI agent virtual machine on a Mac</a>, <a href="../vs-vmpal/">VMBridge vs VMPal</a>.</p>
+
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA (draft)</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>

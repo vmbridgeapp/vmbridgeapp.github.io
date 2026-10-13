@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VMBridge trademark notice</title>
+<meta name="description" content="Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels or with TablePlus.">
+<link rel="canonical" href="https://vmbridgeapp.github.io/trademark/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="VMBridge trademark notice">
+<meta property="og:description" content="Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels or with TablePlus.">
+<meta property="og:url" content="https://vmbridgeapp.github.io/trademark/">
+<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="VMBridge trademark notice">
+<meta name="twitter:description" content="Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels or with TablePlus.">
+<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridgeapp.github.io/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp",
+        "https://github.com/AlexmChadwick/Parallels-Agents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridgeapp.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Trademark notice",
+          "item": "https://vmbridgeapp.github.io/trademark/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../">
+<img src="../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../vs-vmpal/">vs VMPal</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>Trademark notice</span></nav>
+<h1>Trademark notice</h1>
+
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>"Parallels Desktop" names the hypervisor VMBridge drives. It is not part of the product name. The product name is VMBridge. The tagline is "for Parallels Desktop".</p>
+<p>VMPal is a virtual-machine application from TablePlus. The comparison on this site is factual. VMBridge does not include VMPal code and is not endorsed by TablePlus.</p>
+<p>Nothing on this site grants a license to the Parallels, TablePlus, Claude, or other third-party marks.</p>
+
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA (draft)</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>

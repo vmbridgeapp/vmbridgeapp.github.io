@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VMBridge pricing</title>
+<meta name="description" content="VMBridge is a $10 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Lemon Squeezy.">
+<link rel="canonical" href="https://vmbridgeapp.github.io/pricing/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="VMBridge pricing">
+<meta property="og:description" content="VMBridge is a $10 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Lemon Squeezy.">
+<meta property="og:url" content="https://vmbridgeapp.github.io/pricing/">
+<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="VMBridge pricing">
+<meta name="twitter:description" content="VMBridge is a $10 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Lemon Squeezy.">
+<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridgeapp.github.io/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp",
+        "https://github.com/AlexmChadwick/Parallels-Agents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridgeapp.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Pricing",
+          "item": "https://vmbridgeapp.github.io/pricing/"
+        }
+      ]
+    },
+    {
+      "@type": "SoftwareApplication",
+      "name": "VMBridge",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "macOS 14 or later",
+      "url": "https://vmbridgeapp.github.io/",
+      "image": "https://vmbridgeapp.github.io/assets/og.png",
+      "description": "VMBridge for Parallels Desktop. MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots.",
+      "offers": {
+        "@type": "Offer",
+        "price": "10",
+        "priceCurrency": "USD",
+        "url": "https://vmbridgeapp.github.io/pricing/",
+        "description": "One-time purchase of $10 with a 7-day full-featured free trial. Not a subscription."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../">
+<img src="../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../vs-vmpal/">vs VMPal</a><a href="../pricing/" aria-current="page">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>Pricing</span></nav>
+<h1>Pricing</h1>
+<p class="lede">VMBridge is sold as a one-time purchase of $10, with a 7-day full-featured free trial.</p>
+
+<p>The intended price is <strong>$10 USD, paid once</strong>. It is not a subscription. A full-featured trial lasts <strong>7 days</strong> from the first launch on that Mac.</p>
+
+<div class="cta">
+<a class="button" href="https://github.com/AlexmChadwick/Parallels-Agents/releases">Download DMG</a>
+<a class="button ghost" href="https://example.lemonsqueezy.com/checkout/buy/PLACEHOLDER">Buy for $10</a>
+</div>
+<p class="fine">The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. The buy button is a Lemon Squeezy checkout placeholder, not a live store.</p>
+
+<ul>
+<li>The trial clock is stored in the macOS login Keychain and in a file in Application Support. Removing only one copy does not start the trial over.</li>
+<li>Setting the clock forward past the trial, then back, leaves the trial expired.</li>
+<li>After a license key validates, the app keeps working for 14 days if the license server cannot be reached, as long as the key was active.</li>
+<li>Keys are activated with the Lemon Squeezy License API. The app does not ship a store API secret.</li>
+<li>You need macOS 14 or later and Parallels Desktop Pro or Business.</li>
+</ul>
+<p>The checkout URL and the product and variant ids are configuration (<code>VMBRIDGE_CHECKOUT_URL</code>, <code>VMBRIDGE_LEMON_PRODUCT_ID</code>, <code>VMBRIDGE_LEMON_VARIANT_ID</code>). Until those are set to the real store values, the buy button stays a checkout placeholder.</p>
+<p>The license text in the repository is a draft and needs legal review before the app is sold. Read the <a href="../eula/">EULA page</a>.</p>
+
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA (draft)</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>

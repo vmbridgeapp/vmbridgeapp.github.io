@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VMBridge privacy policy</title>
+<meta name="description" content="What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.">
+<link rel="canonical" href="https://vmbridgeapp.github.io/privacy/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="VMBridge privacy policy">
+<meta property="og:description" content="What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.">
+<meta property="og:url" content="https://vmbridgeapp.github.io/privacy/">
+<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="VMBridge privacy policy">
+<meta name="twitter:description" content="What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.">
+<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridgeapp.github.io/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp",
+        "https://github.com/AlexmChadwick/Parallels-Agents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridgeapp.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Privacy policy",
+          "item": "https://vmbridgeapp.github.io/privacy/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../">
+<img src="../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../vs-vmpal/">vs VMPal</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>Privacy policy</span></nav>
+<h1>Privacy policy</h1>
+
+<p>VMBridge runs on your Mac and talks to virtual machines that Parallels Desktop is already running. This page describes that local app. It is not a promise about Parallels Desktop's own privacy policy.</p>
+<h2>No analytics SDK</h2>
+<p>The app does not include an analytics product, a telemetry pipeline, or a crash reporter such as Sentry. Pages on this website are static files. They do not set a cookie and they do not load a third-party script.</p>
+<h2>What stays on the Mac</h2>
+<ul>
+<li>Trial state is stored in the login Keychain (service "VMBridge license") and in a license file under ~/Library/Application Support/VMBridge. An older "Parallels Pro MCP" folder is reused when it is the only copy, so the trial clock is not reset by the rename.</li>
+<li>A guest sign-in password is stored in the login Keychain under "VMBridge sign-in". Tools do not return that password. The activity log records that a sign-in ran, not the secret.</li>
+<li>The activity log records tool calls. Typed text and passwords are not written into it.</li>
+<li>Files an agent sends to the Mac land in ~/Downloads/From VMs.</li>
+</ul>
+<h2>What is sent off the Mac</h2>
+<p>Activating, validating, or deactivating a license key sends the key and an instance name to the Lemon Squeezy License API at api.lemonsqueezy.com. The app does not ship a store API secret. Until a real product id is configured, that check is not tied to a store product. The website's buy button is a checkout placeholder and does not complete a purchase.</p>
+<p>Creating a Linux or macOS guest can download an image from the distribution's own publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not a VMBridge account.</p>
+<h2>Inside a virtual machine</h2>
+<p>An agent running inside a guest uses a token that the daemon accepts only from that VM's addresses. The daemon listens on 127.0.0.1 and on the Parallels Shared and Host-Only networks. It does not listen on every interface unless you set that bind address yourself.</p>
+
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA (draft)</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>

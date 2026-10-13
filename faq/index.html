@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VMBridge FAQ</title>
+<meta name="description" content="Answers about VMBridge for Parallels Desktop: the MCP server, the $10 license, the 7-day trial, Claude Code, the DMG, privacy, and how it differs from VMPal.">
+<link rel="canonical" href="https://vmbridgeapp.github.io/faq/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="VMBridge FAQ">
+<meta property="og:description" content="Answers about VMBridge for Parallels Desktop: the MCP server, the $10 license, the 7-day trial, Claude Code, the DMG, privacy, and how it differs from VMPal.">
+<meta property="og:url" content="https://vmbridgeapp.github.io/faq/">
+<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="VMBridge FAQ">
+<meta name="twitter:description" content="Answers about VMBridge for Parallels Desktop: the MCP server, the $10 license, the 7-day trial, Claude Code, the DMG, privacy, and how it differs from VMPal.">
+<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridgeapp.github.io/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp",
+        "https://github.com/AlexmChadwick/Parallels-Agents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridgeapp.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Questions about VMBridge",
+          "item": "https://vmbridgeapp.github.io/faq/"
+        }
+      ]
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is VMBridge?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $10 once, with a 7-day full-featured free trial."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does VMBridge replace Parallels Desktop?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. VMBridge drives virtual machines that Parallels Desktop already runs. You need Parallels Desktop Pro or Business on the Mac. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Claude Code control a VM?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Run vmbridge connect claude-code on the Mac. Claude Code then talks to the VMBridge MCP server. The agent sees the guest screen and uses the guest keyboard and mouse. It does not drive your Mac desktop."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What does the $10 purchase include?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "A one-time license key for VMBridge, not a subscription. The 7-day trial is full-featured and starts at first launch. A validated key keeps working for 14 days without reaching the license server. The checkout on this site is a Lemon Squeezy placeholder until the store ids are set."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is VMBridge different from VMPal?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "VMPal, from TablePlus, is a VM app with a built-in MCP server. VMBridge is an independent agent layer on Parallels Desktop. It does not include VMPal's hypervisor, Windows engine, or VM file format. See the comparison page for a feature-by-feature map."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Where is the DMG?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The notarized disk image is not a file on this website. It ships with the GitHub release when a signed macOS build is published. Until then, install from the source repository with scripts/install.sh."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What leaves this Mac?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The app does not include an analytics or crash-reporting SDK. Activating or validating a license key sends that key and an instance name to the Lemon Squeezy License API. Sign-in passwords stay in the login Keychain and are not returned by tools or written to the activity log."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../">
+<img src="../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../vs-vmpal/">vs VMPal</a><a href="../pricing/">Pricing</a><a href="../faq/" aria-current="page">FAQ</a><a href="../docs/">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>Questions about VMBridge</span></nav>
+<h1>Questions about VMBridge</h1>
+<section>
+<h2>What is VMBridge?</h2>
+<p>VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $10 once, with a 7-day full-featured free trial.</p>
+</section>
+<section>
+<h2>Does VMBridge replace Parallels Desktop?</h2>
+<p>No. VMBridge drives virtual machines that Parallels Desktop already runs. You need Parallels Desktop Pro or Business on the Mac. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.</p>
+</section>
+<section>
+<h2>How does Claude Code control a VM?</h2>
+<p>Run vmbridge connect claude-code on the Mac. Claude Code then talks to the VMBridge MCP server. The agent sees the guest screen and uses the guest keyboard and mouse. It does not drive your Mac desktop.</p>
+</section>
+<section>
+<h2>What does the $10 purchase include?</h2>
+<p>A one-time license key for VMBridge, not a subscription. The 7-day trial is full-featured and starts at first launch. A validated key keeps working for 14 days without reaching the license server. The checkout on this site is a Lemon Squeezy placeholder until the store ids are set.</p>
+</section>
+<section>
+<h2>How is VMBridge different from VMPal?</h2>
+<p>VMPal, from TablePlus, is a VM app with a built-in MCP server. VMBridge is an independent agent layer on Parallels Desktop. It does not include VMPal&#x27;s hypervisor, Windows engine, or VM file format. See the comparison page for a feature-by-feature map.</p>
+</section>
+<section>
+<h2>Where is the DMG?</h2>
+<p>The notarized disk image is not a file on this website. It ships with the GitHub release when a signed macOS build is published. Until then, install from the source repository with scripts/install.sh.</p>
+</section>
+<section>
+<h2>What leaves this Mac?</h2>
+<p>The app does not include an analytics or crash-reporting SDK. Activating or validating a license key sends that key and an instance name to the Lemon Squeezy License API. Sign-in passwords stay in the login Keychain and are not returned by tools or written to the activity log.</p>
+</section>
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA (draft)</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>

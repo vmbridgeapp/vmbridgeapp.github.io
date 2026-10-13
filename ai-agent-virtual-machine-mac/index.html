@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI agent virtual machine on Mac</title>
+<meta name="description" content="Give an AI agent a virtual machine on a Mac. VMBridge runs on macOS and drives Parallels Desktop guests: Linux, Windows, and macOS, with per-VM permissions.">
+<link rel="canonical" href="https://vmbridgeapp.github.io/ai-agent-virtual-machine-mac/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="AI agent virtual machine on Mac">
+<meta property="og:description" content="Give an AI agent a virtual machine on a Mac. VMBridge runs on macOS and drives Parallels Desktop guests: Linux, Windows, and macOS, with per-VM permissions.">
+<meta property="og:url" content="https://vmbridgeapp.github.io/ai-agent-virtual-machine-mac/">
+<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="AI agent virtual machine on Mac">
+<meta name="twitter:description" content="Give an AI agent a virtual machine on a Mac. VMBridge runs on macOS and drives Parallels Desktop guests: Linux, Windows, and macOS, with per-VM permissions.">
+<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridgeapp.github.io/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp",
+        "https://github.com/AlexmChadwick/Parallels-Agents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridgeapp.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "An AI agent virtual machine on a Mac",
+          "item": "https://vmbridgeapp.github.io/ai-agent-virtual-machine-mac/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../">
+<img src="../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../vs-vmpal/">vs VMPal</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>An AI agent virtual machine on a Mac</span></nav>
+<h1>An AI agent virtual machine on a Mac</h1>
+<p class="lede">VMBridge is how an AI agent gets a virtual machine on a Mac that already runs Parallels Desktop.</p>
+
+<h2>What do you need on the Mac?</h2>
+<p>macOS 14 or later, Parallels Desktop Pro or Business, and VMBridge. Guests need Parallels Tools for commands, files, and the clipboard. The screen, keyboard, and mouse work without Tools, which is how an agent can drive an OS installer.</p>
+<h2>Which guests?</h2>
+<p>Linux, Windows, and macOS guests that Parallels Desktop can run. Pass <code>vm</code> when more than one VM is on. An agent inside a VM can only see its own VM. Its token is refused from any other address, including a clone.</p>
+<h2>What stays on the Mac?</h2>
+<p>The menu-bar app shows when an agent is working. Settings hold the trial and the license key. Sign-in passwords stay in the login Keychain under "VMBridge sign-in". Files an agent sends you land in ~/Downloads/From VMs.</p>
+
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA (draft)</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>

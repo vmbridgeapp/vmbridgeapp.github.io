@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Quickstart | VMBridge</title>
+<meta name="description" content="VMBridge for Parallels Desktop. Give an agent a Parallels Desktop virtual machine. The host needs macOS 14 or later and Parallels Desktop Pro or Business.">
+<link rel="canonical" href="https://vmbridgeapp.github.io/docs/quickstart/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="Quickstart | VMBridge">
+<meta property="og:description" content="VMBridge for Parallels Desktop. Give an agent a Parallels Desktop virtual machine. The host needs macOS 14 or later and Parallels Desktop Pro or Business.">
+<meta property="og:url" content="https://vmbridgeapp.github.io/docs/quickstart/">
+<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="Quickstart | VMBridge">
+<meta name="twitter:description" content="VMBridge for Parallels Desktop. Give an agent a Parallels Desktop virtual machine. The host needs macOS 14 or later and Parallels Desktop Pro or Business.">
+<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridgeapp.github.io/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp",
+        "https://github.com/AlexmChadwick/Parallels-Agents"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridgeapp.github.io/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Quickstart",
+          "item": "https://vmbridgeapp.github.io/docs/quickstart/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../../">
+<img src="../../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../../vs-vmpal/">vs VMPal</a><a href="../../pricing/">Pricing</a><a href="../../faq/">FAQ</a><a href="../../docs/" aria-current="page">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../../">VMBridge</a> <span aria-hidden="true">/</span> <span>Quickstart</span></nav>
+<h1>Quickstart</h1>
+<p>Give an agent a Parallels Desktop virtual machine. The host needs macOS 14 or later and Parallels Desktop Pro or Business.</p>
+<h2>Install the command</h2>
+<pre><code>git clone https://github.com/AlexmChadwick/Parallels-Agents.git
+cd Parallels-Agents
+./scripts/install.sh</code></pre>
+<p>That installs <code>vmbridge</code>. <code>parallels-pro-mcp</code> and <code>guest-vm-agents</code> are the same command. A notarized DMG ships with the GitHub release when a signed build is published. It is not a file on this website.</p>
+<h2>Start the trial</h2>
+<p>Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The intended price after the trial is $10 once. The Lemon Squeezy link on the site is a checkout placeholder until the store ids are set. It is not a live store.</p>
+<h2>Connect Claude Code, Codex, or Cursor</h2>
+<pre><code>vmbridge connect claude-code
+vmbridge connect codex
+vmbridge connect cursor
+vmbridge connect list</code></pre>
+<p>Quit the agent and open it again so it loads the server. The same command covers Claude Desktop, Gemini CLI, VS Code, Windsurf, Cline, and the other MCP clients the app lists.</p>
+<h2>Let it look at the guest</h2>
+<p>The agent can take a screenshot, read the text on the screen, click, and type. Those tools use the virtual machine&#x27;s keyboard and mouse. They do not need Parallels Tools, which is how an agent can drive an installer. Commands, files, and the clipboard do need Parallels Tools.</p>
+<h2>Stop it</h2>
+<p>Pause all agents from the menu-bar app, or turn off agent control for that VM. Either one is checked on the next tool call.</p>
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../../privacy/">Privacy</a> <a href="../../eula/">EULA (draft)</a> <a href="../../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
+<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>
