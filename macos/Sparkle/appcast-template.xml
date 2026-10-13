@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Sparkle appcast for VMBridge.
+     Host this file at VMBRIDGE_SITE_URL/appcast.xml.
+     Default site: https://vmbridgeapp.github.io
+     Alternative: https://vmbridge.pages.dev
+     Fill the enclosure from the notarized DMG and sign the appcast with the
+     Sparkle ed25519 private key that matches SUPublicEDKey.
+     Generate the signature with Sparkle's sign_update tool.
+     Do not put a custom domain here; the site build rewrites SITE_BASE_URL. -->
+<rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>VMBridge</title>
+    <link>SITE_BASE_URL/appcast.xml</link>
+    <description>VMBridge for Parallels Desktop. One-time purchase with a 7-day full-featured free trial.</description>
+    <language>en</language>
+    <item>
+      <title>Version VERSION</title>
+      <pubDate>Thu, 01 Jan 2026 00:00:00 +0000</pubDate>
+      <sparkle:version>BUILD</sparkle:version>
+      <sparkle:shortVersionString>VERSION</sparkle:shortVersionString>
+      <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+      <enclosure
+        url="SITE_BASE_URL/vmbridge-VERSION.dmg"
+        sparkle:edSignature="ED_SIGNATURE"
+        length="0"
+        type="application/octet-stream"/>
+    </item>
+  </channel>
+</rss>
