@@ -1,13 +1,10 @@
 # VMBridge site
 
-Published site for VMBridge. GitHub Pages should deploy from the `main` branch, folder `/` (root).
+GitHub Pages deploys this repository from the `main` branch, folder `/`.
+The public site is https://vmbridgeapp.github.io.
 
-Build the files in the source repository:
+`.github/workflows/build.yml` rebuilds the HTML when `site/build_site.py` or `site/gen/` changes, then commits the pages at the repository root. It keeps `.github/`, `site/`, `macos/`, `parallels_mcp/`, and this README.
 
-```bash
-VMBRIDGE_SITE_URL=https://vmbridgeapp.github.io python3 site/build_site.py --out site/out
-```
+`site/build_site.py` is the generator. `site/gen/part*` is a gzip+base64 copy used only when that file is missing. `.github/workflows/images.yml` rewrites `assets/icon.png` and `assets/og.png` if a text upload corrupts the PNGs.
 
-Copy `site/out` onto this branch and keep `.github/`. `scripts/publish-site.sh` in the source repository does that copy when git can push to this repo.
-
-`.github/workflows/images.yml` rewrites `assets/icon.png` and `assets/og.png` after a text publish. Those are PNG files, and a text upload corrupts them.
+From the source repository, `scripts/publish-site.sh` builds with `VMBRIDGE_SITE_URL=https://vmbridgeapp.github.io` and pushes `site/out` here. It needs `VMBRIDGE_PAGES_TOKEN` with contents write on this repository. The Cursor GitHub App installed on the private source repository cannot push here.

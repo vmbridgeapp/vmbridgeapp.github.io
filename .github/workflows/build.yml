@@ -1,8 +1,7 @@
-# Build the site from the generator committed in this repository.
-# The generator is stored as gzip+base64 parts under site/gen because a
-# text upload cannot carry the binary images, and one contents write is
-# easier to retry in pieces. A commit under site/ retriggers this workflow.
-# The published HTML does not, because those paths are not listed below.
+# Build the site from site/build_site.py. site/gen/part* is a gzip+base64
+# copy used only when that file is missing. A commit under site/ retriggers
+# this workflow. The published HTML does not, because those paths are not
+# listed below.
 
 name: Build site
 
@@ -31,14 +30,15 @@ jobs:
           VMBRIDGE_SITE_URL: https://vmbridgeapp.github.io
         run: |
           set -euo pipefail
-          parts=(site/gen/partaa site/gen/partab site/gen/partac site/gen/partad site/gen/partae)
-          for part in "${parts[@]}"; do
-            if [ ! -f "$part" ]; then
-              echo "Waiting for $part before building."
+          if [ ! -f site/build_site.py ]; then
+            shopt -s nullglob
+            parts=(site/gen/part*)
+            if [ "${#parts[@]}" -eq 0 ]; then
+              echo "No site generator in this checkout."
               exit 0
             fi
-          done
-          cat "${parts[@]}" | base64 -d | gzip -d > site/build_site.py
+            cat site/gen/part* | base64 -d | gzip -d > site/build_site.py
+          fi
           python3 site/build_site.py --out /tmp/vmbridge-site
           python3 - << 'PY'
           import shutil
