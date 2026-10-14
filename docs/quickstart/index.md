@@ -14,7 +14,7 @@ That installs `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are the same
 
 ## Start the trial
 
-Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The intended price after the trial is $9.99 once. The Lemon Squeezy link on the site is a checkout placeholder until the store ids are set. It is not a live store.
+Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The price after the trial is $9.99 once. Buy opens the Lemon Squeezy checkout. The store is in test mode pending approval; the URL stays the same when the store is live.
 
 ## Connect Claude Code, Codex, or Cursor
 

@@ -73,7 +73,7 @@
         "@type": "Offer",
         "price": "9.99",
         "priceCurrency": "USD",
-        "url": "https://vmbridgeapp.github.io/pricing/",
+        "url": "https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f",
         "description": "One-time purchase of $9.99 with a 7-day full-featured free trial. Not a subscription."
       }
     }
@@ -102,9 +102,9 @@
 
 <div class="cta">
 <a class="button" href="https://github.com/AlexmChadwick/Parallels-Agents/releases">Download DMG</a>
-<a class="button ghost" href="https://example.lemonsqueezy.com/checkout/buy/PLACEHOLDER">Buy for $9.99</a>
+<a class="button ghost" href="https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f">Buy for $9.99</a>
 </div>
-<p class="fine">The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. The buy button is a Lemon Squeezy checkout placeholder, not a live store.</p>
+<p class="fine">The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. Buy opens the Lemon Squeezy checkout. The store is in test mode pending approval; this URL stays the same when the store is live.</p>
 
 <ul>
 <li>The trial clock is stored in the macOS login Keychain and in a file in Application Support. Removing only one copy does not start the trial over.</li>
@@ -113,7 +113,7 @@
 <li>Keys are activated with the Lemon Squeezy License API. The app does not ship a store API secret.</li>
 <li>You need macOS 14 or later and Parallels Desktop Pro or Business.</li>
 </ul>
-<p>The checkout URL and the product and variant ids are configuration (<code>VMBRIDGE_CHECKOUT_URL</code>, <code>VMBRIDGE_LEMON_PRODUCT_ID</code>, <code>VMBRIDGE_LEMON_VARIANT_ID</code>). Until those are set to the real store values, the buy button stays a checkout placeholder.</p>
+<p>The checkout is the VMBridge Lemon Squeezy store (slug vmbridge, store id 497255, product id 1437706, variant id 2244841). A license key can be active on 2 machines and does not expire. <code>VMBRIDGE_CHECKOUT_URL</code>, <code>VMBRIDGE_LEMON_STORE_ID</code>, <code>VMBRIDGE_LEMON_PRODUCT_ID</code>, and <code>VMBRIDGE_LEMON_VARIANT_ID</code> still override those defaults. A key is refused when its store id or product id does not match.</p>
 <p>The license text in the repository is a draft and needs legal review before the app is sold. Read the <a href="../eula/">EULA page</a>.</p>
 
 </main>

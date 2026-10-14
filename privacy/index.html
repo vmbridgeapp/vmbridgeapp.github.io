@@ -92,7 +92,7 @@
 <li>Files an agent sends to the Mac land in ~/Downloads/From VMs.</li>
 </ul>
 <h2>What is sent off the Mac</h2>
-<p>Activating, validating, or deactivating a license key sends the key and an instance name to the Lemon Squeezy License API at api.lemonsqueezy.com. The app does not ship a store API secret. Until a real product id is configured, that check is not tied to a store product. The website's buy button is a checkout placeholder and does not complete a purchase.</p>
+<p>Activating, validating, or deactivating a license key sends the key and an instance name to the Lemon Squeezy License API at api.lemonsqueezy.com. The app does not ship a store API secret. A key is accepted only when its store id and product id match VMBridge. The website buy button opens that checkout. The store is in test mode pending approval.</p>
 <p>Creating a Linux or macOS guest can download an image from the distribution's own publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not a VMBridge account.</p>
 <h2>Inside a virtual machine</h2>
 <p>An agent running inside a guest uses a token that the daemon accepts only from that VM's addresses. The daemon listens on 127.0.0.1 and on the Parallels Shared and Host-Only networks. It does not listen on every interface unless you set that bind address yourself.</p>

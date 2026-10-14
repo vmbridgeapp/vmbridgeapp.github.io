@@ -25,7 +25,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BASE = "https://vmbridgeapp.github.io"
 ALTERNATE_BASE = "https://vmbridge.pages.dev"
 GSC_PLACEHOLDER = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN"
-DEFAULT_CHECKOUT = "https://example.lemonsqueezy.com/checkout/buy/PLACEHOLDER"
+DEFAULT_CHECKOUT = "https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f"
+STORE_ID = "497255"
+STORE_SLUG = "vmbridge"
+PRODUCT_ID = "1437706"
+VARIANT_ID = "2244841"
 SOURCE_REPO = "https://github.com/AlexmChadwick/Parallels-Agents"
 RELEASES_URL = SOURCE_REPO + "/releases"
 LICENSE_URL = SOURCE_REPO + "/blob/main/LICENSE"
@@ -342,7 +346,7 @@ That installs `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are the same
 
 ## Start the trial
 
-Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The intended price after the trial is $9.99 once. The Lemon Squeezy link on the site is a checkout placeholder until the store ids are set. It is not a live store.
+Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The price after the trial is $9.99 once. Buy opens the Lemon Squeezy checkout. The store is in test mode pending approval; the URL stays the same when the store is live.
 
 ## Connect Claude Code, Codex, or Cursor
 
@@ -400,15 +404,17 @@ A license key is activated with the Lemon Squeezy License API. No store API secr
 
 ## Store settings
 
-These are public identifiers, not secrets:
+These public identifiers are the defaults. Environment variables override them. They are not secrets.
 
-- VMBRIDGE_CHECKOUT_URL
-- VMBRIDGE_LEMON_PRODUCT_ID
-- VMBRIDGE_LEMON_VARIANT_ID
+- Store id 497255, slug vmbridge
+- Product id 1437706
+- Variant id 2244841
+- Checkout https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f
+- A license key can be active on 2 machines. It does not expire.
 
-GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
+VMBRIDGE_CHECKOUT_URL, VMBRIDGE_LEMON_STORE_ID, VMBRIDGE_LEMON_PRODUCT_ID, and VMBRIDGE_LEMON_VARIANT_ID override the defaults. GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_STORE_ID, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
 
-Until a real product id is set, the license check is not tied to a store product. Set the ids before selling. The license text in the repository is a draft and needs legal review before the app is sold.
+A key whose Lemon Squeezy meta store_id or product_id does not match is rejected. Set an id to 0 or placeholder to skip that one check. The license text in the repository is a draft and needs legal review before the app is sold. The Lemon Squeezy store is in test mode pending approval. The checkout URL stays the same when the store is live.
 """,
     "mcp-tools": """# MCP tools for a Parallels Desktop VM
 
@@ -449,7 +455,7 @@ def pages() -> list[dict[str, object]]:
         ),
         (
             "What does the $9.99 purchase include?",
-            "A one-time license key for VMBridge, not a subscription. The 7-day trial is full-featured and starts at first launch. A validated key keeps working for 14 days without reaching the license server. The checkout on this site is a Lemon Squeezy placeholder until the store ids are set.",
+            "A one-time license key for VMBridge, not a subscription. It can be active on 2 machines and does not expire. The 7-day trial is full-featured and starts at first launch. A validated key keeps working for 14 days without reaching the license server. The Lemon Squeezy store is in test mode pending approval; the checkout URL stays the same when the store is live.",
         ),
         (
             "How is VMBridge different from VMPal?",
@@ -599,7 +605,7 @@ def software(base: str) -> dict[str, object]:
             "@type": "Offer",
             "price": PRICE,
             "priceCurrency": "USD",
-            "url": abs_url(base, "pricing"),
+            "url": checkout_url(),
             "description": "One-time purchase of $9.99 with a 7-day full-featured free trial. Not a subscription.",
         },
     }
@@ -707,7 +713,7 @@ def cta_block(checkout: str) -> str:
 <a class="button" href="{esc(RELEASES_URL)}">Download DMG</a>
 <a class="button ghost" href="{esc(checkout)}">Buy for $9.99</a>
 </div>
-<p class="fine">The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. The buy button is a Lemon Squeezy checkout placeholder, not a live store.</p>
+<p class="fine">The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. Buy opens the Lemon Squeezy checkout. The store is in test mode pending approval; this URL stays the same when the store is live.</p>
 """
 
 
@@ -722,7 +728,7 @@ def pricing_body(checkout: str) -> str:
 <li>Keys are activated with the Lemon Squeezy License API. The app does not ship a store API secret.</li>
 <li>You need macOS 14 or later and Parallels Desktop Pro or Business.</li>
 </ul>
-<p>The checkout URL and the product and variant ids are configuration (<code>VMBRIDGE_CHECKOUT_URL</code>, <code>VMBRIDGE_LEMON_PRODUCT_ID</code>, <code>VMBRIDGE_LEMON_VARIANT_ID</code>). Until those are set to the real store values, the buy button stays a checkout placeholder.</p>
+<p>The checkout is the VMBridge Lemon Squeezy store (slug vmbridge, store id 497255, product id 1437706, variant id 2244841). A license key can be active on 2 machines and does not expire. <code>VMBRIDGE_CHECKOUT_URL</code>, <code>VMBRIDGE_LEMON_STORE_ID</code>, <code>VMBRIDGE_LEMON_PRODUCT_ID</code>, and <code>VMBRIDGE_LEMON_VARIANT_ID</code> still override those defaults. A key is refused when its store id or product id does not match.</p>
 <p>The license text in the repository is a draft and needs legal review before the app is sold. Read the <a href="../eula/">EULA page</a>.</p>
 """
 
@@ -811,7 +817,7 @@ def legal_body(slug: str) -> str:
 <li>Files an agent sends to the Mac land in ~/Downloads/From VMs.</li>
 </ul>
 <h2>What is sent off the Mac</h2>
-<p>Activating, validating, or deactivating a license key sends the key and an instance name to the Lemon Squeezy License API at api.lemonsqueezy.com. The app does not ship a store API secret. Until a real product id is configured, that check is not tied to a store product. The website's buy button is a checkout placeholder and does not complete a purchase.</p>
+<p>Activating, validating, or deactivating a license key sends the key and an instance name to the Lemon Squeezy License API at api.lemonsqueezy.com. The app does not ship a store API secret. A key is accepted only when its store id and product id match VMBridge. The website buy button opens that checkout. The store is in test mode pending approval.</p>
 <p>Creating a Linux or macOS guest can download an image from the distribution's own publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not a VMBridge account.</p>
 <h2>Inside a virtual machine</h2>
 <p>An agent running inside a guest uses a token that the daemon accepts only from that VM's addresses. The daemon listens on 127.0.0.1 and on the Parallels Shared and Host-Only networks. It does not listen on every interface unless you set that bind address yourself.</p>
@@ -820,7 +826,7 @@ def legal_body(slug: str) -> str:
         return f"""
 <p class="banner"><strong>Draft. Not legal advice.</strong> This license has not been reviewed by a lawyer. Do not treat this page as the terms of a sale, and do not ship it to customers until counsel has reviewed it.</p>
 <p>The current draft is the <a href="{esc(LICENSE_URL)}">LICENSE</a> file in the source repository ({esc(SOURCE_REPO)}). Copyright 2026 Alex Chadwick. Portions derived from parallels-pro-mcp-server remain under the MIT License, copyright Jarod Wong. That notice is in LICENSES/MIT-upstream and THIRD_PARTY_NOTICES.</p>
-<p>The draft describes a one-time purchase at an intended price of $9.99 and a 7-day full-featured trial. It is not in force for customers while the store is unconfigured and the text is still marked draft. The buy button on this site is a Lemon Squeezy checkout placeholder.</p>
+<p>The draft describes a one-time purchase at an intended price of $9.99 and a 7-day full-featured trial. The text is still marked draft and is not in force as customer terms. The buy button opens the Lemon Squeezy checkout. The store is in test mode pending approval.</p>
 <p><a href="{esc(LICENSE_URL)}">Read the draft EULA</a></p>
 """
     return f"""
@@ -1118,7 +1124,7 @@ def llms_full(base: str) -> str:
         "",
         "Hero: Let your AI agent drive Parallels Desktop VMs.",
         "",
-        "Price: $9.99 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. License checks use the Lemon Squeezy License API and do not require a store API secret in the app. The public checkout URL is a placeholder until VMBRIDGE_CHECKOUT_URL and the Lemon product ids are set. The license text is a draft and is not legal advice.",
+        "Price: $9.99 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. A license key can be active on 2 machines and does not expire. License checks use the Lemon Squeezy License API and do not require a store API secret in the app. The default store id is 497255 (slug vmbridge), product id 1437706, variant id 2244841. Checkout: https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f. The store is in test mode pending approval; that URL stays the same when the store is live. A key whose store id or product id does not match is rejected. The license text is a draft and is not legal advice.",
         "",
         "Host requirements: macOS 14 or later, Parallels Desktop Pro or Business. The command is vmbridge. Works with Claude Code, Codex, Cursor, and other MCP clients.",
         "",

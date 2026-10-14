@@ -33,7 +33,7 @@ VMBridge is the product name. The tagline is for Parallels Desktop. The product 
 
 Hero: Let your AI agent drive Parallels Desktop VMs.
 
-Price: $9.99 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. License checks use the Lemon Squeezy License API and do not require a store API secret in the app. The public checkout URL is a placeholder until VMBRIDGE_CHECKOUT_URL and the Lemon product ids are set. The license text is a draft and is not legal advice.
+Price: $9.99 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. A license key can be active on 2 machines and does not expire. License checks use the Lemon Squeezy License API and do not require a store API secret in the app. The default store id is 497255 (slug vmbridge), product id 1437706, variant id 2244841. Checkout: https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f. The store is in test mode pending approval; that URL stays the same when the store is live. A key whose store id or product id does not match is rejected. The license text is a draft and is not legal advice.
 
 Host requirements: macOS 14 or later, Parallels Desktop Pro or Business. The command is vmbridge. Works with Claude Code, Codex, Cursor, and other MCP clients.
 
@@ -61,7 +61,7 @@ That installs `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are the same
 
 ## Start the trial
 
-Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The intended price after the trial is $9.99 once. The Lemon Squeezy link on the site is a checkout placeholder until the store ids are set. It is not a live store.
+Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The price after the trial is $9.99 once. Buy opens the Lemon Squeezy checkout. The store is in test mode pending approval; the URL stays the same when the store is live.
 
 ## Connect Claude Code, Codex, or Cursor
 
@@ -123,15 +123,17 @@ A license key is activated with the Lemon Squeezy License API. No store API secr
 
 ## Store settings
 
-These are public identifiers, not secrets:
+These public identifiers are the defaults. Environment variables override them. They are not secrets.
 
-- VMBRIDGE_CHECKOUT_URL
-- VMBRIDGE_LEMON_PRODUCT_ID
-- VMBRIDGE_LEMON_VARIANT_ID
+- Store id 497255, slug vmbridge
+- Product id 1437706
+- Variant id 2244841
+- Checkout https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f
+- A license key can be active on 2 machines. It does not expire.
 
-GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
+VMBRIDGE_CHECKOUT_URL, VMBRIDGE_LEMON_STORE_ID, VMBRIDGE_LEMON_PRODUCT_ID, and VMBRIDGE_LEMON_VARIANT_ID override the defaults. GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_STORE_ID, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
 
-Until a real product id is set, the license check is not tied to a store product. Set the ids before selling. The license text in the repository is a draft and needs legal review before the app is sold.
+A key whose Lemon Squeezy meta store_id or product_id does not match is rejected. Set an id to 0 or placeholder to skip that one check. The license text in the repository is a draft and needs legal review before the app is sold. The Lemon Squeezy store is in test mode pending approval. The checkout URL stays the same when the store is live.
 
 Source: https://vmbridgeapp.github.io/docs/trial-and-license/index.md
 

@@ -8,12 +8,14 @@ A license key is activated with the Lemon Squeezy License API. No store API secr
 
 ## Store settings
 
-These are public identifiers, not secrets:
+These public identifiers are the defaults. Environment variables override them. They are not secrets.
 
-- VMBRIDGE_CHECKOUT_URL
-- VMBRIDGE_LEMON_PRODUCT_ID
-- VMBRIDGE_LEMON_VARIANT_ID
+- Store id 497255, slug vmbridge
+- Product id 1437706
+- Variant id 2244841
+- Checkout https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f
+- A license key can be active on 2 machines. It does not expire.
 
-GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
+VMBRIDGE_CHECKOUT_URL, VMBRIDGE_LEMON_STORE_ID, VMBRIDGE_LEMON_PRODUCT_ID, and VMBRIDGE_LEMON_VARIANT_ID override the defaults. GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_STORE_ID, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
 
-Until a real product id is set, the license check is not tied to a store product. Set the ids before selling. The license text in the repository is a draft and needs legal review before the app is sold.
+A key whose Lemon Squeezy meta store_id or product_id does not match is rejected. Set an id to 0 or placeholder to skip that one check. The license text in the repository is a draft and needs legal review before the app is sold. The Lemon Squeezy store is in test mode pending approval. The checkout URL stays the same when the store is live.
