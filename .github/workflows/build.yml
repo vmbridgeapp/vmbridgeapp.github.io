@@ -41,6 +41,7 @@ jobs:
           fi
           # Older copies of this generator still say $10. The price is $9.99.
           sed -i 's/\$10/$9.99/g; s/PRICE = "10"/PRICE = "9.99"/' site/build_site.py
+          python3 site/apply_checkout.py
           python3 site/build_site.py --out /tmp/vmbridge-site
           python3 - << 'PY'
           import shutil
