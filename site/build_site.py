@@ -25,11 +25,11 @@ ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_BASE = "https://vmbridgeapp.github.io"
 ALTERNATE_BASE = "https://vmbridge.pages.dev"
 GSC_PLACEHOLDER = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN"
-DEFAULT_CHECKOUT = "https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f"
-STORE_ID = "497255"
-STORE_SLUG = "vmbridge"
-PRODUCT_ID = "1437706"
-VARIANT_ID = "2244841"
+DEFAULT_CHECKOUT = "https://buy.polar.sh/polar_cl_xQ7772UMU2C5OTxywIp6Sr75YFJqRNYjm1iIW0sAEL8"
+SUPPORT_EMAIL = "chadwickalex@icloud.com"
+SELLER_NAME = "Alex Chadwick"
+SELLER_DBA = "Chadwick Labs"
+MERCHANT = "Polar (Polar Software, Inc.)"
 SOURCE_REPO = "https://github.com/AlexmChadwick/Parallels-Agents"
 RELEASES_URL = SOURCE_REPO + "/releases"
 LICENSE_URL = SOURCE_REPO + "/blob/main/LICENSE"
@@ -42,7 +42,7 @@ TRADEMARK = (
     "VMBridge is not affiliated with TablePlus."
 )
 PRICE = "9.99"
-UPDATED = "2026-10-13"
+UPDATED = "2026-10-16"
 
 # 5x7 glyphs. Rows are left to right, "1" is ink.
 _GLYPHS: dict[str, tuple[str, ...]] = {
@@ -346,7 +346,7 @@ That installs `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are the same
 
 ## Start the trial
 
-Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The price after the trial is $9.99 once. Buy opens the Lemon Squeezy checkout. The store is in test mode pending approval; the URL stays the same when the store is live.
+Open VMBridge. The price is $9.99 one-time, with a 7-day free trial. The trial is full-featured and starts at first launch on that Mac. Buy opens the Polar checkout. Polar (Polar Software, Inc.) processes the payment as merchant of record.
 
 ## Connect Claude Code, Codex, or Cursor
 
@@ -394,27 +394,21 @@ The same connect command covers Claude Desktop, Codex, Cursor, VS Code, Windsurf
 
 The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME to move it. PARALLELS_MCP_HOME still works. If the new folder does not exist and an older "Parallels Pro MCP" folder does, that older folder is kept so the trial clock is not reset.
 """,
-    "trial-and-license": """# Trial and license
+    "trial-and-license": f"""# Trial and license
 
-VMBridge is a one-time purchase of $9.99 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json and in the macOS login Keychain. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it.
+VMBridge is $9.99 one-time, 7-day free trial. The trial is full-featured. It starts at first launch on that Mac. The start is stored in license.json, in a hidden marker in the same folder, and in the app preference VMBridgeTrialStartedAt. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it. The license file is not kept in the login Keychain.
 
 ## After you buy
 
-A license key is activated with the Lemon Squeezy License API. No store API secret is shipped in the app. After a successful check, the app keeps working offline for 14 days.
+The price is $9.99 USD, paid once. It is not a subscription. Buy opens the Polar checkout. Polar (Polar Software, Inc.) is the merchant of record. A license key is checked with Polar's API. After a successful check, the app keeps working offline for 14 days. A refund within 14 days of purchase does not require a reason. Email {SUPPORT_EMAIL}.
 
-## Store settings
+## Checkout
 
-These public identifiers are the defaults. Environment variables override them. They are not secrets.
+- Checkout {DEFAULT_CHECKOUT}
+- Sold by {SELLER_NAME}, doing business as {SELLER_DBA}
+- Support {SUPPORT_EMAIL}
 
-- Store id 497255, slug vmbridge
-- Product id 1437706
-- Variant id 2244841
-- Checkout https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f
-- A license key can be active on 2 machines. It does not expire.
-
-VMBRIDGE_CHECKOUT_URL, VMBRIDGE_LEMON_STORE_ID, VMBRIDGE_LEMON_PRODUCT_ID, and VMBRIDGE_LEMON_VARIANT_ID override the defaults. GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_STORE_ID, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
-
-A key whose Lemon Squeezy meta store_id or product_id does not match is rejected. Set an id to 0 or placeholder to skip that one check. The license text in the repository is a draft and needs legal review before the app is sold. The Lemon Squeezy store is in test mode pending approval. The checkout URL stays the same when the store is live.
+VMBRIDGE_CHECKOUT_URL overrides the checkout link. GUEST_VM_AGENTS_CHECKOUT_URL still works. The customer terms are the Terms of Service on this site. The refund rules are the Refund Policy.
 """,
     "mcp-tools": """# MCP tools for a Parallels Desktop VM
 
@@ -443,7 +437,7 @@ def pages() -> list[dict[str, object]]:
     faqs = [
         (
             "What is VMBridge?",
-            "VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $9.99 once, with a 7-day full-featured free trial.",
+            "VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The price is $9.99 one-time, 7-day free trial. The trial is full-featured.",
         ),
         (
             "Does VMBridge replace Parallels Desktop?",
@@ -455,7 +449,7 @@ def pages() -> list[dict[str, object]]:
         ),
         (
             "What does the $9.99 purchase include?",
-            "A one-time license key for VMBridge, not a subscription. It can be active on 2 machines and does not expire. The 7-day trial is full-featured and starts at first launch. A validated key keeps working for 14 days without reaching the license server. The Lemon Squeezy store is in test mode pending approval; the checkout URL stays the same when the store is live.",
+            "A one-time license key for VMBridge, not a subscription. The price is $9.99 one-time, 7-day free trial. The trial is full-featured and starts at first launch. Buy opens the Polar checkout. Polar (Polar Software, Inc.) is the merchant of record. A validated key keeps working for 14 days without reaching the license server. You can ask for a full refund within 14 days of purchase without giving a reason.",
         ),
         (
             "How is VMBridge different from VMPal?",
@@ -467,7 +461,7 @@ def pages() -> list[dict[str, object]]:
         ),
         (
             "What leaves this Mac?",
-            "The app does not include an analytics or crash-reporting SDK. Activating or validating a license key sends that key and an instance name to the Lemon Squeezy License API. Sign-in passwords stay in the login Keychain and are not returned by tools or written to the activity log.",
+            "The app runs locally. It does not include an analytics or crash-reporting SDK, and it does not send usage telemetry. Activating or validating a license key contacts Polar's API. Guest sign-in passwords stay in a file on the Mac and are not returned by tools or written to the activity log.",
         ),
     ]
     home_faqs = faqs[:3]
@@ -477,7 +471,7 @@ def pages() -> list[dict[str, object]]:
             "nav": "VMBridge",
             "in_nav": False,
             "title": "VMBridge for Parallels Desktop — let your AI agent drive VMs",
-            "description": "Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $9.99 one-time, with a 7-day full-featured free trial. Works with Claude Code, Codex, and Cursor.",
+            "description": "Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $9.99 one-time, 7-day free trial. Works with Claude Code, Codex, and Cursor.",
             "h1": "Let your AI agent drive Parallels Desktop VMs",
             "kind": "home",
             "faqs": home_faqs,
@@ -527,17 +521,17 @@ def pages() -> list[dict[str, object]]:
             "nav": "Pricing",
             "in_nav": True,
             "title": "VMBridge pricing",
-            "description": "VMBridge is a $9.99 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Lemon Squeezy.",
+            "description": "VMBridge is $9.99 one-time, 7-day free trial. It is not a subscription. Checkout is Polar. Polar Software, Inc. is the merchant of record.",
             "h1": "Pricing",
             "kind": "pricing",
-            "lead": "VMBridge is sold as a one-time purchase of $9.99, with a 7-day full-featured free trial.",
+            "lead": "$9.99 one-time, 7-day free trial.",
         },
         {
             "slug": "faq",
             "nav": "FAQ",
             "in_nav": True,
             "title": "VMBridge FAQ",
-            "description": "Answers about VMBridge for Parallels Desktop: the MCP server, the $9.99 license, the 7-day trial, Claude Code, the DMG, privacy, and how it differs from VMPal.",
+            "description": "Answers about VMBridge for Parallels Desktop: the MCP server, the $9.99 one-time price, the 7-day free trial, Claude Code, the DMG, privacy, and how it differs from VMPal.",
             "h1": "Questions about VMBridge",
             "kind": "faq",
             "faqs": faqs,
@@ -552,21 +546,39 @@ def pages() -> list[dict[str, object]]:
             "kind": "docs",
         },
         {
+            "slug": "terms",
+            "nav": "Terms",
+            "in_nav": False,
+            "title": "VMBridge terms of service",
+            "description": "Terms of Service for VMBridge. $9.99 one-time, 7-day free trial. Sold by Alex Chadwick, doing business as Chadwick Labs. Payments are processed by Polar.",
+            "h1": "Terms of Service",
+            "kind": "legal",
+        },
+        {
             "slug": "privacy",
             "nav": "Privacy",
             "in_nav": False,
             "title": "VMBridge privacy policy",
-            "description": "What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.",
+            "description": "VMBridge runs locally on your Mac and does not send usage telemetry. License validation contacts Polar's API. Sold by Alex Chadwick, doing business as Chadwick Labs.",
             "h1": "Privacy policy",
+            "kind": "legal",
+        },
+        {
+            "slug": "refund",
+            "nav": "Refunds",
+            "in_nav": False,
+            "title": "VMBridge refund policy",
+            "description": "Refund policy for VMBridge: a full refund within 14 days of purchase, no questions asked. Polar Software, Inc. is the merchant of record.",
+            "h1": "Refund policy",
             "kind": "legal",
         },
         {
             "slug": "eula",
             "nav": "EULA",
             "in_nav": False,
-            "title": "VMBridge EULA (draft)",
-            "description": "The VMBridge end user license is a draft and is not legal advice. Read the LICENSE file in the source repository before relying on it.",
-            "h1": "End user license (draft)",
+            "title": "VMBridge software license",
+            "description": "The customer terms for VMBridge are the Terms of Service. The LICENSE file in the source repository is the software license for that code.",
+            "h1": "Software license",
             "kind": "legal",
         },
         {
@@ -606,7 +618,7 @@ def software(base: str) -> dict[str, object]:
             "price": PRICE,
             "priceCurrency": "USD",
             "url": checkout_url(),
-            "description": "One-time purchase of $9.99 with a 7-day full-featured free trial. Not a subscription.",
+            "description": "$9.99 one-time, 7-day free trial. Not a subscription.",
         },
     }
 
@@ -679,7 +691,7 @@ def article_body(page: dict[str, object]) -> str:
 <h2>Which guests?</h2>
 <p>Linux, Windows, and macOS guests that Parallels Desktop can run. Pass <code>vm</code> when more than one VM is on. An agent inside a VM can only see its own VM. Its token is refused from any other address, including a clone.</p>
 <h2>What stays on the Mac?</h2>
-<p>The menu-bar app shows when an agent is working. Settings hold the trial and the license key. Sign-in passwords stay in the login Keychain under "VMBridge sign-in". Files an agent sends you land in ~/Downloads/From VMs.</p>
+<p>The menu-bar app shows when an agent is working. Settings hold the trial and the license key. Sign-in passwords stay in a file in Application Support. Files an agent sends you land in ~/Downloads/From VMs.</p>
 """
     return ""
 
@@ -713,23 +725,24 @@ def cta_block(checkout: str) -> str:
 <a class="button" href="{esc(RELEASES_URL)}">Download DMG</a>
 <a class="button ghost" href="{esc(checkout)}">Buy for $9.99</a>
 </div>
-<p class="fine">The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. Buy opens the Lemon Squeezy checkout. The store is in test mode pending approval; this URL stays the same when the store is live.</p>
+<p class="fine">$9.99 one-time, 7-day free trial. The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. Buy opens the Polar checkout. {esc(MERCHANT)} processes the payment as merchant of record.</p>
 """
 
 
 def pricing_body(checkout: str) -> str:
     return f"""
-<p>The intended price is <strong>$9.99 USD, paid once</strong>. It is not a subscription. A full-featured trial lasts <strong>7 days</strong> from the first launch on that Mac.</p>
+<p>The price is <strong>$9.99 USD, paid once</strong>. It is not a subscription. The free trial lasts <strong>7 days</strong> and includes the full app. It starts the first time VMBridge runs on that Mac.</p>
 {cta_block(checkout)}
 <ul>
-<li>The trial clock is stored in the macOS login Keychain and in a file in Application Support. Removing only one copy does not start the trial over.</li>
+<li>Sold by {esc(SELLER_NAME)}, an individual doing business as {esc(SELLER_DBA)}.</li>
+<li>Payments are processed by {esc(MERCHANT)}, the merchant of record. Polar sends the receipt.</li>
+<li>The trial clock is stored on the Mac in the app's support folder, a hidden marker in that folder, and a preference date. Removing only one copy does not start the trial over. It is not stored in the login Keychain.</li>
 <li>Setting the clock forward past the trial, then back, leaves the trial expired.</li>
-<li>After a license key validates, the app keeps working for 14 days if the license server cannot be reached, as long as the key was active.</li>
-<li>Keys are activated with the Lemon Squeezy License API. The app does not ship a store API secret.</li>
-<li>You need macOS 14 or later and Parallels Desktop Pro or Business.</li>
+<li>After a license key validates, the app keeps working for 14 days if Polar's API cannot be reached, as long as the key was active.</li>
+<li>You can ask for a full refund within 14 days of purchase. You do not have to give a reason. See the <a href="../refund/">refund policy</a>.</li>
+<li>You need macOS 14 or later and Parallels Desktop Pro or Business. VMBridge does not include Parallels Desktop.</li>
 </ul>
-<p>The checkout is the VMBridge Lemon Squeezy store (slug vmbridge, store id 497255, product id 1437706, variant id 2244841). A license key can be active on 2 machines and does not expire. <code>VMBRIDGE_CHECKOUT_URL</code>, <code>VMBRIDGE_LEMON_STORE_ID</code>, <code>VMBRIDGE_LEMON_PRODUCT_ID</code>, and <code>VMBRIDGE_LEMON_VARIANT_ID</code> still override those defaults. A key is refused when its store id or product id does not match.</p>
-<p>The license text in the repository is a draft and needs legal review before the app is sold. Read the <a href="../eula/">EULA page</a>.</p>
+<p>Support is <a href="mailto:{esc(SUPPORT_EMAIL)}">{esc(SUPPORT_EMAIL)}</a>. The sale is covered by the <a href="../terms/">Terms of Service</a> and the <a href="../privacy/">privacy policy</a>.</p>
 """
 
 
@@ -745,7 +758,7 @@ def home_body(checkout: str) -> str:
         ),
         (
             "Virtual machines",
-            "Start, stop, suspend, pause, resume, and restart. <code>vm_create</code> with <code>vm_systems</code> covers Ubuntu, Fedora, Debian, Kali, and macOS IPSW images. Windows is created with the Parallels assistant or an ISO; the agent can drive the installer. There is no unattended installer. <code>vm_run_ephemeral</code> copies a VM, runs, and deletes the copy. Snapshots: <code>snapshot_create</code>, <code>snapshot_revert</code>, <code>snapshot_delete</code>, <code>snapshot_list</code>. There is no rename. <code>vm_sign_in</code> types a Keychain password the agent never receives. Also: configure, shared folders, port forward, headless, autostart, delete to the Trash, status, list, install Tools, and the activity log.",
+            "Start, stop, suspend, pause, resume, and restart. <code>vm_create</code> with <code>vm_systems</code> covers Ubuntu, Fedora, Debian, Kali, and macOS IPSW images. Windows is created with the Parallels assistant or an ISO; the agent can drive the installer. There is no unattended installer. <code>vm_run_ephemeral</code> copies a VM, runs, and deletes the copy. Snapshots: <code>snapshot_create</code>, <code>snapshot_revert</code>, <code>snapshot_delete</code>, <code>snapshot_list</code>. There is no rename. <code>vm_sign_in</code> types a stored password the agent never receives. Also: configure, shared folders, port forward, headless, autostart, delete to the Trash, status, list, install Tools, and the activity log.",
         ),
         (
             "Safety",
@@ -760,8 +773,7 @@ def home_body(checkout: str) -> str:
 <ul class="facts">
 <li>macOS 14 or later</li>
 <li>Parallels Desktop Pro or Business</li>
-<li>$9.99 once</li>
-<li>7-day full-featured free trial</li>
+<li>$9.99 one-time, 7-day free trial</li>
 </ul>
 {cta_block(checkout)}
 <figure class="demo">
@@ -798,36 +810,87 @@ def home_body(checkout: str) -> str:
 <li><a href="ai-agent-virtual-machine-mac/">AI agent virtual machine on a Mac</a></li>
 <li><a href="vs-vmpal/">VMBridge vs VMPal</a></li>
 <li><a href="pricing/">Pricing</a></li>
+<li><a href="terms/">Terms of Service</a></li>
 <li><a href="privacy/">Privacy policy</a></li>
+<li><a href="refund/">Refund policy</a></li>
 </ul>
 """
 
 
 def legal_body(slug: str) -> str:
+    updated = "16 October 2026"
+    seller = (
+        f"{esc(SELLER_NAME)}, an individual doing business as {esc(SELLER_DBA)}"
+    )
+    contact = f'<a href="mailto:{esc(SUPPORT_EMAIL)}">{esc(SUPPORT_EMAIL)}</a>'
+    if slug == "terms":
+        return f"""
+<p>Last updated {updated}.</p>
+<p>These terms are the agreement for buying and using VMBridge. They are between you and {seller}.</p>
+<h2>The product</h2>
+<p>VMBridge is a macOS app. It lets an AI agent drive virtual machines that Parallels Desktop is already running on that Mac. It is not Parallels Desktop. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels, and it is not affiliated with TablePlus.</p>
+<p>You need macOS 14 or later and Parallels Desktop Pro or Business. You license those yourself. VMBridge does not include them.</p>
+<h2>Price and trial</h2>
+<p>The price is $9.99 USD, paid once. It is not a subscription. There is a 7-day free trial. The trial includes the full app and starts the first time VMBridge runs on that Mac. Deleting the license file, or setting the clock back, does not start the trial over.</p>
+<h2>How you pay</h2>
+<p>The buy button opens <a href="{esc(checkout_url())}">Polar's checkout</a>. {esc(MERCHANT)} is the merchant of record. Polar processes the payment, issues the receipt, and handles the charge. {esc(SELLER_DBA)} sets the price and provides the software and support.</p>
+<h2>The license</h2>
+<p>A purchase gives you a license key so you can keep using VMBridge after the trial. The purchase is one-time. The key is for your own use. You do not receive ownership of the software. Do not resell the key, post it for the public, or use it to run VMBridge as a service for other people.</p>
+<h2>Refunds</h2>
+<p>You can have a full refund within 14 days of the purchase. You do not have to give a reason. The <a href="../refund/">refund policy</a> says how to ask.</p>
+<h2>Support</h2>
+<p>Email {contact}.</p>
+<h2>What we do not promise</h2>
+<p>VMBridge drives Parallels Desktop. We do not promise that every guest operating system, every AI agent, or every future macOS release will work. You decide which virtual machines an agent may control, and you are responsible for the commands it runs.</p>
+<p>The software is provided as it is. To the extent the law allows, {esc(SELLER_DBA)} is not liable for lost files, a damaged guest, or lost profits. Nothing on this page removes a right the law does not let us remove. Polar's own terms apply to the payment Polar processes.</p>
+<h2>Changes</h2>
+<p>If these terms change, the new text will be on this page with a new date. The price and refund window that applied to a purchase are the ones shown at checkout when you paid.</p>
+<h2>Contact</h2>
+<p>{seller}<br>{contact}</p>
+"""
     if slug == "privacy":
-        return """
-<p>VMBridge runs on your Mac and talks to virtual machines that Parallels Desktop is already running. This page describes that local app. It is not a promise about Parallels Desktop's own privacy policy.</p>
-<h2>No analytics SDK</h2>
-<p>The app does not include an analytics product, a telemetry pipeline, or a crash reporter such as Sentry. Pages on this website are static files. They do not set a cookie and they do not load a third-party script.</p>
+        return f"""
+<p>Last updated {updated}.</p>
+<p>{seller} makes VMBridge. This page says what the app and this website do with information. It is not Parallels Desktop's privacy policy.</p>
+<h2>The app runs on your Mac</h2>
+<p>VMBridge runs locally. It talks to virtual machines that Parallels Desktop is already running on that Mac. The app source does not include an analytics product, a telemetry pipeline, or a crash reporter. It does not send screenshots, commands, files, or a usage log to {esc(SELLER_DBA)}.</p>
+<h2>License validation</h2>
+<p>Activating, validating, or deactivating a license key contacts Polar's API. That request is how the app checks the key. It is not a usage report. After a successful check, the app can keep working offline for 14 days.</p>
+<p>{esc(MERCHANT)} is the merchant of record for a purchase. Polar's privacy policy covers the checkout page, the payment, and the customer record Polar keeps: <a href="https://polar.sh/legal/privacy">polar.sh/legal/privacy</a>.</p>
 <h2>What stays on the Mac</h2>
 <ul>
-<li>Trial state is stored in the login Keychain (service "VMBridge license") and in a license file under ~/Library/Application Support/VMBridge. An older "Parallels Pro MCP" folder is reused when it is the only copy, so the trial clock is not reset by the rename.</li>
-<li>A guest sign-in password is stored in the login Keychain under "VMBridge sign-in". Tools do not return that password. The activity log records that a sign-in ran, not the secret.</li>
-<li>The activity log records tool calls. Typed text and passwords are not written into it.</li>
+<li>The trial start and the license record are stored under ~/Library/Application Support/VMBridge, or in the folder named by VMBRIDGE_HOME. The copies are license.json, a hidden trial marker in that folder, and the preference date VMBridgeTrialStartedAt. An older "Parallels Pro MCP" folder is reused when it is the only copy, so a rename does not reset the trial. The license file is not stored in the login Keychain.</li>
+<li>A guest sign-in password is stored in signin-passwords.json in that same folder. Tools do not return that password. The activity log records that a sign-in ran, not the secret.</li>
+<li>The activity log records tool calls on the Mac. Typed text and passwords are not written into it. Command lines are, so keep secrets out of commands.</li>
 <li>Files an agent sends to the Mac land in ~/Downloads/From VMs.</li>
 </ul>
-<h2>What is sent off the Mac</h2>
-<p>Activating, validating, or deactivating a license key sends the key and an instance name to the Lemon Squeezy License API at api.lemonsqueezy.com. The app does not ship a store API secret. A key is accepted only when its store id and product id match VMBridge. The website buy button opens that checkout. The store is in test mode pending approval.</p>
-<p>Creating a Linux or macOS guest can download an image from the distribution's own publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not a VMBridge account.</p>
+<h2>Other network requests</h2>
+<p>Creating a Linux or macOS guest can download an image from that distribution's publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not an account with {esc(SELLER_DBA)}.</p>
+<p>A build that includes the Sparkle update framework checks this site's appcast for a newer version. A build without Sparkle does not make that check. The check looks up an update. It is not a usage report.</p>
+<p>This website is a set of static files. It does not set a cookie and it does not load a third-party script. The theme button stores light or dark in localStorage on your computer. The buy button is a link that leaves this site and opens Polar.</p>
 <h2>Inside a virtual machine</h2>
 <p>An agent running inside a guest uses a token that the daemon accepts only from that VM's addresses. The daemon listens on 127.0.0.1 and on the Parallels Shared and Host-Only networks. It does not listen on every interface unless you set that bind address yourself.</p>
+<h2>Contact</h2>
+<p>Questions about this policy: {contact}.</p>
+"""
+    if slug == "refund":
+        return f"""
+<p>Last updated {updated}.</p>
+<p>VMBridge is $9.99 one-time, 7-day free trial. If you buy it and change your mind, you can have a full refund within 14 days of the purchase. You do not have to give a reason.</p>
+<h2>How to ask</h2>
+<p>Email {contact} from the address you used at checkout, or request the refund in Polar. {esc(MERCHANT)} is the merchant of record and processes the refund to the original payment method. Say that you want a refund for VMBridge. You do not need to explain why.</p>
+<h2>When the 14 days start</h2>
+<p>The 14 days start when the purchase is completed, not when the free trial started. The trial does not require a payment. A request on the 14th day is in time.</p>
+<h2>After a refund</h2>
+<p>The license key from that purchase is refunded. Stop using that key. You can delete the app from the Mac.</p>
+<h2>Who sells it</h2>
+<p>{seller}. Polar processes the payment. Questions: {contact}.</p>
 """
     if slug == "eula":
         return f"""
-<p class="banner"><strong>Draft. Not legal advice.</strong> This license has not been reviewed by a lawyer. Do not treat this page as the terms of a sale, and do not ship it to customers until counsel has reviewed it.</p>
-<p>The current draft is the <a href="{esc(LICENSE_URL)}">LICENSE</a> file in the source repository ({esc(SOURCE_REPO)}). Copyright 2026 Alex Chadwick. Portions derived from parallels-pro-mcp-server remain under the MIT License, copyright Jarod Wong. That notice is in LICENSES/MIT-upstream and THIRD_PARTY_NOTICES.</p>
-<p>The draft describes a one-time purchase at an intended price of $9.99 and a 7-day full-featured trial. The text is still marked draft and is not in force as customer terms. The buy button opens the Lemon Squeezy checkout. The store is in test mode pending approval.</p>
-<p><a href="{esc(LICENSE_URL)}">Read the draft EULA</a></p>
+<p>The terms of a purchase are the <a href="../terms/">Terms of Service</a>. Refunds are the <a href="../refund/">refund policy</a>. The price is $9.99 one-time, 7-day free trial. The buy button opens Polar's checkout, and {esc(MERCHANT)} is the merchant of record.</p>
+<p>The <a href="{esc(LICENSE_URL)}">LICENSE</a> file in the source repository ({esc(SOURCE_REPO)}) is the software license for that code. Copyright 2026 Alex Chadwick. Portions derived from parallels-pro-mcp-server remain under the MIT License, copyright Jarod Wong. That notice is in LICENSES/MIT-upstream and THIRD_PARTY_NOTICES.</p>
+<p><a href="{esc(LICENSE_URL)}">Read the LICENSE file</a></p>
 """
     return f"""
 <p>{esc(TRADEMARK)}</p>
@@ -841,7 +904,7 @@ def docs_index() -> str:
     items = [
         ("quickstart", "Quickstart", "Install, connect Claude Code, Codex, or Cursor, and stop the agent."),
         ("install", "Install", "The vmbridge command and where settings are stored."),
-        ("trial-and-license", "Trial and license", "The 7-day trial, the $9.99 key, and the store settings."),
+        ("trial-and-license", "Trial and license", "The $9.99 one-time price, the 7-day free trial, and the Polar checkout."),
         ("mcp-tools", "MCP tools", "What an agent can call, and what VMBridge does not do."),
     ]
     lis = []
@@ -879,8 +942,14 @@ def layout(base: str, page: dict[str, object], body: str, gsc: str, depth: int) 
     gsc_meta = f'<meta name="google-site-verification" content="{esc(gsc)}">'
     og = base + "/assets/og.png"
     legal = []
-    for item_slug, label in (("privacy", "Privacy"), ("eula", "EULA (draft)"), ("trademark", "Trademark")):
+    for item_slug, label in (
+        ("terms", "Terms"),
+        ("privacy", "Privacy"),
+        ("refund", "Refunds"),
+        ("trademark", "Trademark"),
+    ):
         legal.append(f'<a href="{esc(prefix + item_slug + "/")}">{label}</a>')
+    legal.append(f'<a href="mailto:{esc(SUPPORT_EMAIL)}">{esc(SUPPORT_EMAIL)}</a>')
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -936,7 +1005,8 @@ def layout(base: str, page: dict[str, object], body: str, gsc: str, depth: int) 
 <nav aria-label="Legal">{' '.join(legal)}</nav>
 <p><a href="{esc(X_URL)}">@vmbridgeapp</a> on X. Public GitHub organization <a href="{esc(GITHUB_ORG_URL)}">vmbridgeapp</a>. Source of this build: <a href="{esc(SOURCE_REPO)}">AlexmChadwick/Parallels-Agents</a>.</p>
 <p>{esc(TRADEMARK)}</p>
-<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+<p>Sold by {esc(SELLER_NAME)}, an individual doing business as {esc(SELLER_DBA)}. Payments are processed by {esc(MERCHANT)}, the merchant of record.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong.</p>
 </footer>
 <script>
 (function(){{
@@ -1083,7 +1153,7 @@ def llms_txt(base: str) -> str:
     lines = [
         "# VMBridge",
         "",
-        "> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $9.99 USD once, with a 7-day full-featured free trial. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.",
+        "> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The price is $9.99 USD one-time, 7-day free trial. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.",
         "",
         "The command is `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases. Default site: "
         + DEFAULT_BASE
@@ -1124,7 +1194,11 @@ def llms_full(base: str) -> str:
         "",
         "Hero: Let your AI agent drive Parallels Desktop VMs.",
         "",
-        "Price: $9.99 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. A license key can be active on 2 machines and does not expire. License checks use the Lemon Squeezy License API and do not require a store API secret in the app. The default store id is 497255 (slug vmbridge), product id 1437706, variant id 2244841. Checkout: https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f. The store is in test mode pending approval; that URL stays the same when the store is live. A key whose store id or product id does not match is rejected. The license text is a draft and is not legal advice.",
+        "Price: $9.99 USD one-time, 7-day free trial. The trial is full-featured and starts at first launch. It is not a subscription. Offline use after a successful license check: 14 days. License validation contacts Polar's API. Checkout: "
+        + DEFAULT_CHECKOUT
+        + ". Seller: Alex Chadwick, an individual doing business as Chadwick Labs. Merchant of record: Polar Software, Inc. Support: "
+        + SUPPORT_EMAIL
+        + ". Refunds: full refund within 14 days of purchase, no questions asked. The app runs locally and does not send usage telemetry.",
         "",
         "Host requirements: macOS 14 or later, Parallels Desktop Pro or Business. The command is vmbridge. Works with Claude Code, Codex, Cursor, and other MCP clients.",
         "",

@@ -1,21 +1,15 @@
 # Trial and license
 
-VMBridge is a one-time purchase of $9.99 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json and in the macOS login Keychain. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it.
+VMBridge is $9.99 one-time, 7-day free trial. The trial is full-featured. It starts at first launch on that Mac. The start is stored in license.json, in a hidden marker in the same folder, and in the app preference VMBridgeTrialStartedAt. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it. The license file is not kept in the login Keychain.
 
 ## After you buy
 
-A license key is activated with the Lemon Squeezy License API. No store API secret is shipped in the app. After a successful check, the app keeps working offline for 14 days.
+The price is $9.99 USD, paid once. It is not a subscription. Buy opens the Polar checkout. Polar (Polar Software, Inc.) is the merchant of record. A license key is checked with Polar's API. After a successful check, the app keeps working offline for 14 days. A refund within 14 days of purchase does not require a reason. Email chadwickalex@icloud.com.
 
-## Store settings
+## Checkout
 
-These public identifiers are the defaults. Environment variables override them. They are not secrets.
+- Checkout https://buy.polar.sh/polar_cl_xQ7772UMU2C5OTxywIp6Sr75YFJqRNYjm1iIW0sAEL8
+- Sold by Alex Chadwick, doing business as Chadwick Labs
+- Support chadwickalex@icloud.com
 
-- Store id 497255, slug vmbridge
-- Product id 1437706
-- Variant id 2244841
-- Checkout https://vmbridge.lemonsqueezy.com/checkout/buy/cbca7388-4a0c-4ccd-8e83-2e15f8e4f54f
-- A license key can be active on 2 machines. It does not expire.
-
-VMBRIDGE_CHECKOUT_URL, VMBRIDGE_LEMON_STORE_ID, VMBRIDGE_LEMON_PRODUCT_ID, and VMBRIDGE_LEMON_VARIANT_ID override the defaults. GUEST_VM_AGENTS_CHECKOUT_URL, GUEST_VM_AGENTS_LEMON_STORE_ID, GUEST_VM_AGENTS_LEMON_PRODUCT_ID, and GUEST_VM_AGENTS_LEMON_VARIANT_ID still work.
-
-A key whose Lemon Squeezy meta store_id or product_id does not match is rejected. Set an id to 0 or placeholder to skip that one check. The license text in the repository is a draft and needs legal review before the app is sold. The Lemon Squeezy store is in test mode pending approval. The checkout URL stays the same when the store is live.
+VMBRIDGE_CHECKOUT_URL overrides the checkout link. GUEST_VM_AGENTS_CHECKOUT_URL still works. The customer terms are the Terms of Service on this site. The refund rules are the Refund Policy.

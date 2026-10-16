@@ -4,13 +4,13 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>VMBridge privacy policy</title>
-<meta name="description" content="What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.">
+<meta name="description" content="VMBridge runs locally on your Mac and does not send usage telemetry. License validation contacts Polar&#x27;s API. Sold by Alex Chadwick, doing business as Chadwick Labs.">
 <link rel="canonical" href="https://vmbridgeapp.github.io/privacy/">
 <meta name="theme-color" content="#0e3b32">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VMBridge">
 <meta property="og:title" content="VMBridge privacy policy">
-<meta property="og:description" content="What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.">
+<meta property="og:description" content="VMBridge runs locally on your Mac and does not send usage telemetry. License validation contacts Polar&#x27;s API. Sold by Alex Chadwick, doing business as Chadwick Labs.">
 <meta property="og:url" content="https://vmbridgeapp.github.io/privacy/">
 <meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
 <meta property="og:image:width" content="1200">
@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@vmbridgeapp">
 <meta name="twitter:title" content="VMBridge privacy policy">
-<meta name="twitter:description" content="What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.">
+<meta name="twitter:description" content="VMBridge runs locally on your Mac and does not send usage telemetry. License validation contacts Polar&#x27;s API. Sold by Alex Chadwick, doing business as Chadwick Labs.">
 <meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
 <meta name="twitter:image:alt" content="VMBridge">
 <meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
@@ -81,28 +81,36 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>Privacy policy</span></nav>
 <h1>Privacy policy</h1>
 
-<p>VMBridge runs on your Mac and talks to virtual machines that Parallels Desktop is already running. This page describes that local app. It is not a promise about Parallels Desktop's own privacy policy.</p>
-<h2>No analytics SDK</h2>
-<p>The app does not include an analytics product, a telemetry pipeline, or a crash reporter such as Sentry. Pages on this website are static files. They do not set a cookie and they do not load a third-party script.</p>
+<p>Last updated 16 October 2026.</p>
+<p>Alex Chadwick, an individual doing business as Chadwick Labs makes VMBridge. This page says what the app and this website do with information. It is not Parallels Desktop's privacy policy.</p>
+<h2>The app runs on your Mac</h2>
+<p>VMBridge runs locally. It talks to virtual machines that Parallels Desktop is already running on that Mac. The app source does not include an analytics product, a telemetry pipeline, or a crash reporter. It does not send screenshots, commands, files, or a usage log to Chadwick Labs.</p>
+<h2>License validation</h2>
+<p>Activating, validating, or deactivating a license key contacts Polar's API. That request is how the app checks the key. It is not a usage report. After a successful check, the app can keep working offline for 14 days.</p>
+<p>Polar (Polar Software, Inc.) is the merchant of record for a purchase. Polar's privacy policy covers the checkout page, the payment, and the customer record Polar keeps: <a href="https://polar.sh/legal/privacy">polar.sh/legal/privacy</a>.</p>
 <h2>What stays on the Mac</h2>
 <ul>
-<li>Trial state is stored in the login Keychain (service "VMBridge license") and in a license file under ~/Library/Application Support/VMBridge. An older "Parallels Pro MCP" folder is reused when it is the only copy, so the trial clock is not reset by the rename.</li>
-<li>A guest sign-in password is stored in the login Keychain under "VMBridge sign-in". Tools do not return that password. The activity log records that a sign-in ran, not the secret.</li>
-<li>The activity log records tool calls. Typed text and passwords are not written into it.</li>
+<li>The trial start and the license record are stored under ~/Library/Application Support/VMBridge, or in the folder named by VMBRIDGE_HOME. The copies are license.json, a hidden trial marker in that folder, and the preference date VMBridgeTrialStartedAt. An older "Parallels Pro MCP" folder is reused when it is the only copy, so a rename does not reset the trial. The license file is not stored in the login Keychain.</li>
+<li>A guest sign-in password is stored in signin-passwords.json in that same folder. Tools do not return that password. The activity log records that a sign-in ran, not the secret.</li>
+<li>The activity log records tool calls on the Mac. Typed text and passwords are not written into it. Command lines are, so keep secrets out of commands.</li>
 <li>Files an agent sends to the Mac land in ~/Downloads/From VMs.</li>
 </ul>
-<h2>What is sent off the Mac</h2>
-<p>Activating, validating, or deactivating a license key sends the key and an instance name to the Lemon Squeezy License API at api.lemonsqueezy.com. The app does not ship a store API secret. A key is accepted only when its store id and product id match VMBridge. The website buy button opens that checkout. The store is in test mode pending approval.</p>
-<p>Creating a Linux or macOS guest can download an image from the distribution's own publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not a VMBridge account.</p>
+<h2>Other network requests</h2>
+<p>Creating a Linux or macOS guest can download an image from that distribution's publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not an account with Chadwick Labs.</p>
+<p>A build that includes the Sparkle update framework checks this site's appcast for a newer version. A build without Sparkle does not make that check. The check looks up an update. It is not a usage report.</p>
+<p>This website is a set of static files. It does not set a cookie and it does not load a third-party script. The theme button stores light or dark in localStorage on your computer. The buy button is a link that leaves this site and opens Polar.</p>
 <h2>Inside a virtual machine</h2>
 <p>An agent running inside a guest uses a token that the daemon accepts only from that VM's addresses. The daemon listens on 127.0.0.1 and on the Parallels Shared and Host-Only networks. It does not listen on every interface unless you set that bind address yourself.</p>
+<h2>Contact</h2>
+<p>Questions about this policy: <a href="mailto:chadwickalex@icloud.com">chadwickalex@icloud.com</a>.</p>
 
 </main>
 <footer>
-<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA (draft)</a> <a href="../trademark/">Trademark</a></nav>
+<nav aria-label="Legal"><a href="../terms/">Terms</a> <a href="../privacy/">Privacy</a> <a href="../refund/">Refunds</a> <a href="../trademark/">Trademark</a> <a href="mailto:chadwickalex@icloud.com">chadwickalex@icloud.com</a></nav>
 <p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
 <p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
-<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are a draft and need legal review before sale.</p>
+<p>Sold by Alex Chadwick, an individual doing business as Chadwick Labs. Payments are processed by Polar (Polar Software, Inc.), the merchant of record.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong.</p>
 </footer>
 <script>
 (function(){

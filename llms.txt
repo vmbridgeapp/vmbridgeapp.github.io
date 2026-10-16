@@ -1,20 +1,22 @@
 # VMBridge
 
-> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The intended price is $9.99 USD once, with a 7-day full-featured free trial. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.
+> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The price is $9.99 USD one-time, 7-day free trial. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.
 
 The command is `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases. Default site: https://vmbridgeapp.github.io. Alternative host: https://vmbridge.pages.dev. X: @vmbridgeapp. Source repository: https://github.com/AlexmChadwick/Parallels-Agents.
 
 ## Pages
-- [VMBridge for Parallels Desktop — let your AI agent drive VMs](https://vmbridgeapp.github.io/): Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $9.99 one-time, with a 7-day full-featured free trial. Works with Claude Code, Codex, and Cursor.
+- [VMBridge for Parallels Desktop — let your AI agent drive VMs](https://vmbridgeapp.github.io/): Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $9.99 one-time, 7-day free trial. Works with Claude Code, Codex, and Cursor.
 - [MCP server for Parallels Desktop](https://vmbridgeapp.github.io/mcp-server-for-parallels-desktop/): VMBridge is an MCP server for Parallels Desktop. Agents see the VM screen, type, click, run commands, and move files without touching the Mac desktop.
 - [Claude Code control a VM](https://vmbridgeapp.github.io/claude-code-control-a-vm/): Use Claude Code to control a Parallels Desktop VM with VMBridge. One command connects the agent. The VM's screen, keyboard, and mouse stay inside the guest.
 - [AI agent virtual machine on Mac](https://vmbridgeapp.github.io/ai-agent-virtual-machine-mac/): Give an AI agent a virtual machine on a Mac. VMBridge runs on macOS and drives Parallels Desktop guests: Linux, Windows, and macOS, with per-VM permissions.
 - [VMBridge vs VMPal](https://vmbridgeapp.github.io/vs-vmpal/): VMBridge and VMPal both give an AI agent a computer over MCP. VMPal is a hypervisor from TablePlus. VMBridge drives Parallels Desktop and is not affiliated with TablePlus.
-- [VMBridge pricing](https://vmbridgeapp.github.io/pricing/): VMBridge is a $9.99 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Lemon Squeezy.
-- [VMBridge FAQ](https://vmbridgeapp.github.io/faq/): Answers about VMBridge for Parallels Desktop: the MCP server, the $9.99 license, the 7-day trial, Claude Code, the DMG, privacy, and how it differs from VMPal.
+- [VMBridge pricing](https://vmbridgeapp.github.io/pricing/): VMBridge is $9.99 one-time, 7-day free trial. It is not a subscription. Checkout is Polar. Polar Software, Inc. is the merchant of record.
+- [VMBridge FAQ](https://vmbridgeapp.github.io/faq/): Answers about VMBridge for Parallels Desktop: the MCP server, the $9.99 one-time price, the 7-day free trial, Claude Code, the DMG, privacy, and how it differs from VMPal.
 - [VMBridge docs](https://vmbridgeapp.github.io/docs/): Install VMBridge, connect an MCP agent, and read the trial rules. The same pages are plain Markdown for people and for answer engines.
-- [VMBridge privacy policy](https://vmbridgeapp.github.io/privacy/): What VMBridge stores on the Mac, and the one request a license check sends to Lemon Squeezy. No analytics SDK is included.
-- [VMBridge EULA (draft)](https://vmbridgeapp.github.io/eula/): The VMBridge end user license is a draft and is not legal advice. Read the LICENSE file in the source repository before relying on it.
+- [VMBridge terms of service](https://vmbridgeapp.github.io/terms/): Terms of Service for VMBridge. $9.99 one-time, 7-day free trial. Sold by Alex Chadwick, doing business as Chadwick Labs. Payments are processed by Polar.
+- [VMBridge privacy policy](https://vmbridgeapp.github.io/privacy/): VMBridge runs locally on your Mac and does not send usage telemetry. License validation contacts Polar's API. Sold by Alex Chadwick, doing business as Chadwick Labs.
+- [VMBridge refund policy](https://vmbridgeapp.github.io/refund/): Refund policy for VMBridge: a full refund within 14 days of purchase, no questions asked. Polar Software, Inc. is the merchant of record.
+- [VMBridge software license](https://vmbridgeapp.github.io/eula/): The customer terms for VMBridge are the Terms of Service. The LICENSE file in the source repository is the software license for that code.
 - [VMBridge trademark notice](https://vmbridgeapp.github.io/trademark/): Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels or with TablePlus.
 
 ## Docs (Markdown)
