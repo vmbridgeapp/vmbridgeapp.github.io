@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Install VMBridge | VMBridge</title>
 <meta name="description" content="VMBridge for Parallels Desktop. VMBridge is a macOS app for Parallels Desktop. The host needs macOS 14 or later and Parallels Desktop Pro or Business, because the tools use">
-<link rel="canonical" href="https://vmbridgeapp.github.io/docs/install/">
+<link rel="canonical" href="https://vmbridge.app/docs/install/">
 <meta name="theme-color" content="#0e3b32">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VMBridge">
 <meta property="og:title" content="Install VMBridge | VMBridge">
 <meta property="og:description" content="VMBridge for Parallels Desktop. VMBridge is a macOS app for Parallels Desktop. The host needs macOS 14 or later and Parallels Desktop Pro or Business, because the tools use">
-<meta property="og:url" content="https://vmbridgeapp.github.io/docs/install/">
-<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:url" content="https://vmbridge.app/docs/install/">
+<meta property="og:image" content="https://vmbridge.app/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="VMBridge">
@@ -20,7 +20,7 @@
 <meta name="twitter:site" content="@vmbridgeapp">
 <meta name="twitter:title" content="Install VMBridge | VMBridge">
 <meta name="twitter:description" content="VMBridge for Parallels Desktop. VMBridge is a macOS app for Parallels Desktop. The host needs macOS 14 or later and Parallels Desktop Pro or Business, because the tools use">
-<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image" content="https://vmbridge.app/assets/og.png">
 <meta name="twitter:image:alt" content="VMBridge">
 <meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
 <link rel="icon" href="../../assets/icon.png" type="image/png">
@@ -35,13 +35,12 @@
     {
       "@type": "Organization",
       "name": "VMBridge",
-      "url": "https://vmbridgeapp.github.io/",
+      "url": "https://vmbridge.app/",
       "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
-      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "logo": "https://vmbridge.app/assets/icon.png",
       "sameAs": [
         "https://x.com/vmbridgeapp",
-        "https://github.com/vmbridgeapp",
-        "https://github.com/AlexmChadwick/Parallels-Agents"
+        "https://github.com/vmbridgeapp"
       ]
     },
     {
@@ -51,13 +50,13 @@
           "@type": "ListItem",
           "position": 1,
           "name": "VMBridge",
-          "item": "https://vmbridgeapp.github.io/"
+          "item": "https://vmbridge.app/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "Install VMBridge",
-          "item": "https://vmbridgeapp.github.io/docs/install/"
+          "item": "https://vmbridge.app/docs/install/"
         }
       ]
     }
@@ -73,7 +72,7 @@
 <span>VMBridge <small>for Parallels Desktop</small></span>
 </a>
 <nav aria-label="Primary">
-<a href="../../vs-vmpal/">vs VMPal</a><a href="../../pricing/">Pricing</a><a href="../../faq/">FAQ</a><a href="../../docs/" aria-current="page">Docs</a>
+<a href="../../comparison/">Comparison</a><a href="../../pricing/">Pricing</a><a href="../../faq/">FAQ</a><a href="../../docs/" aria-current="page">Docs</a>
 </nav>
 <button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
 </header>
@@ -81,24 +80,20 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">VMBridge</a> <span aria-hidden="true">/</span> <span>Install VMBridge</span></nav>
 <h1>Install VMBridge</h1>
 <p>VMBridge is a macOS app for Parallels Desktop. The host needs macOS 14 or later and Parallels Desktop Pro or Business, because the tools use prlctl and the Parallels Virtualization SDK.</p>
-<h2>Developer install</h2>
-<pre><code>git clone https://github.com/AlexmChadwick/Parallels-Agents.git
-cd Parallels-Agents
-./scripts/install.sh</code></pre>
-<p>That installs the <code>vmbridge</code> command. <code>parallels-pro-mcp</code> and <code>guest-vm-agents</code> are the same command.</p>
+<h2>Install the app and command</h2>
+<p>Download the DMG from the VMBridge site, drag VMBridge to Applications, and open it. The app includes the <code>vmbridge</code> command at <code>/Applications/VMBridge.app/Contents/Resources/cli/vmbridge</code>. <code>parallels-pro-mcp</code> and <code>guest-vm-agents</code> are aliases for the same command.</p>
 <h2>Connect an agent</h2>
 <pre><code>vmbridge connect claude-code
 vmbridge connect list</code></pre>
 <p>The same connect command covers Claude Desktop, Codex, Cursor, VS Code, Windsurf, Cline, Gemini CLI, and other MCP clients.</p>
 <h2>Where state lives</h2>
-<p>The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME to move it. PARALLELS_MCP_HOME still works. If the new folder does not exist and an older &quot;Parallels Pro MCP&quot; folder does, that older folder is kept so the trial clock is not reset.</p>
+<p>The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME to move it. PARALLELS_MCP_HOME still works. On first launch an older Application Support folder is moved here, including the license file, so the trial clock is not reset. If that move fails, the older folder is still used.</p>
 </main>
 <footer>
-<nav aria-label="Legal"><a href="../../terms/">Terms</a> <a href="../../privacy/">Privacy</a> <a href="../../refund/">Refunds</a> <a href="../../trademark/">Trademark</a> <a href="mailto:chadwickalex@icloud.com">chadwickalex@icloud.com</a></nav>
-<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
-<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
-<p>Sold by Alex Chadwick, an individual doing business as Chadwick Labs. Payments are processed by Polar (Polar Software, Inc.), the merchant of record.</p>
-<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong.</p>
+<nav aria-label="Legal"><a href="../../privacy/">Privacy</a> <a href="../../eula/">EULA</a> <a href="../../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>.</p>
+<p>Parallels is a registered trademark of Parallels International GmbH. VMBridge is not affiliated with or endorsed by Parallels.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are the end user license. The seller is Chadwick Labs. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.</p>
 </footer>
 <script>
 (function(){

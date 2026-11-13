@@ -1,15 +1,19 @@
 # Trial and license
 
-VMBridge is $9.99 one-time, 7-day free trial. The trial is full-featured. It starts at first launch on that Mac. The start is stored in license.json, in a hidden marker in the same folder, and in the app preference VMBridgeTrialStartedAt. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it. The license file is not kept in the login Keychain.
+VMBridge is a one-time purchase of $9.99 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json in Application Support. Deleting that file alone does not reset the trial: the earliest start is also kept in a hidden .trial-origin file and in the preference VMBridgeTrialStartedAt. Setting the clock back does not extend it.
 
 ## After you buy
 
-The price is $9.99 USD, paid once. It is not a subscription. Buy opens the Polar checkout. Polar (Polar Software, Inc.) is the merchant of record. A license key is checked with Polar's API. After a successful check, the app keeps working offline for 14 days. A refund within 14 days of purchase does not require a reason. Email chadwickalex@icloud.com.
+A license key is activated with Polar's customer-portal license-key API. No API token is shipped in the app. After a successful check, the app keeps working offline for 14 days.
 
-## Checkout
+## Store settings
 
+These public identifiers are the defaults. Environment variables override them. They are not secrets.
+
+- Polar organization id e1d27794-4788-4325-8d9c-399c4814fdb3
 - Checkout https://buy.polar.sh/polar_cl_xQ7772UMU2C5OTxywIp6Sr75YFJqRNYjm1iIW0sAEL8
-- Sold by Alex Chadwick, doing business as Chadwick Labs
-- Support chadwickalex@icloud.com
+- A license key looks like VMB-<key>. It can be active on 3 machines. It does not expire.
 
-VMBRIDGE_CHECKOUT_URL overrides the checkout link. GUEST_VM_AGENTS_CHECKOUT_URL still works. The customer terms are the Terms of Service on this site. The refund rules are the Refund Policy.
+VMBRIDGE_CHECKOUT_URL and VMBRIDGE_POLAR_ORGANIZATION_ID override the defaults. GUEST_VM_AGENTS_CHECKOUT_URL still works for the checkout URL.
+
+A key whose organization id does not match is rejected. Set VMBRIDGE_POLAR_ORGANIZATION_ID to 0 or placeholder to skip that check. The end user license is available on the EULA page and inside the app. The seller is Chadwick Labs, an individual seller in the United States. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.

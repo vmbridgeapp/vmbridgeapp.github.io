@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MCP tools for a Parallels Desktop VM | VMBridge</title>
 <meta name="description" content="VMBridge for Parallels Desktop. VMBridge speaks MCP. An agent on the Mac starts `vmbridge` over stdio. An agent inside a VM uses the daemon on the Parallels Shared or Host-">
-<link rel="canonical" href="https://vmbridgeapp.github.io/docs/mcp-tools/">
+<link rel="canonical" href="https://vmbridge.app/docs/mcp-tools/">
 <meta name="theme-color" content="#0e3b32">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VMBridge">
 <meta property="og:title" content="MCP tools for a Parallels Desktop VM | VMBridge">
 <meta property="og:description" content="VMBridge for Parallels Desktop. VMBridge speaks MCP. An agent on the Mac starts `vmbridge` over stdio. An agent inside a VM uses the daemon on the Parallels Shared or Host-">
-<meta property="og:url" content="https://vmbridgeapp.github.io/docs/mcp-tools/">
-<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:url" content="https://vmbridge.app/docs/mcp-tools/">
+<meta property="og:image" content="https://vmbridge.app/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="VMBridge">
@@ -20,7 +20,7 @@
 <meta name="twitter:site" content="@vmbridgeapp">
 <meta name="twitter:title" content="MCP tools for a Parallels Desktop VM | VMBridge">
 <meta name="twitter:description" content="VMBridge for Parallels Desktop. VMBridge speaks MCP. An agent on the Mac starts `vmbridge` over stdio. An agent inside a VM uses the daemon on the Parallels Shared or Host-">
-<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image" content="https://vmbridge.app/assets/og.png">
 <meta name="twitter:image:alt" content="VMBridge">
 <meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
 <link rel="icon" href="../../assets/icon.png" type="image/png">
@@ -35,13 +35,12 @@
     {
       "@type": "Organization",
       "name": "VMBridge",
-      "url": "https://vmbridgeapp.github.io/",
+      "url": "https://vmbridge.app/",
       "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
-      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "logo": "https://vmbridge.app/assets/icon.png",
       "sameAs": [
         "https://x.com/vmbridgeapp",
-        "https://github.com/vmbridgeapp",
-        "https://github.com/AlexmChadwick/Parallels-Agents"
+        "https://github.com/vmbridgeapp"
       ]
     },
     {
@@ -51,13 +50,13 @@
           "@type": "ListItem",
           "position": 1,
           "name": "VMBridge",
-          "item": "https://vmbridgeapp.github.io/"
+          "item": "https://vmbridge.app/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "MCP tools for a Parallels Desktop VM",
-          "item": "https://vmbridgeapp.github.io/docs/mcp-tools/"
+          "item": "https://vmbridge.app/docs/mcp-tools/"
         }
       ]
     }
@@ -73,7 +72,7 @@
 <span>VMBridge <small>for Parallels Desktop</small></span>
 </a>
 <nav aria-label="Primary">
-<a href="../../vs-vmpal/">vs VMPal</a><a href="../../pricing/">Pricing</a><a href="../../faq/">FAQ</a><a href="../../docs/" aria-current="page">Docs</a>
+<a href="../../comparison/">Comparison</a><a href="../../pricing/">Pricing</a><a href="../../faq/">FAQ</a><a href="../../docs/" aria-current="page">Docs</a>
 </nav>
 <button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
 </header>
@@ -81,14 +80,97 @@
 <nav class="crumbs" aria-label="Breadcrumb"><a href="../../">VMBridge</a> <span aria-hidden="true">/</span> <span>MCP tools for a Parallels Desktop VM</span></nav>
 <h1>MCP tools for a Parallels Desktop VM</h1>
 <p>VMBridge speaks MCP. An agent on the Mac starts <code>vmbridge</code> over stdio. An agent inside a VM uses the daemon on the Parallels Shared or Host-Only network, with a token that works only for that VM.</p>
-<h2>What an agent can do</h2>
+<p>The complete reference, including every tool, parameter, and default, is on the [MCP tools page](/docs/mcp-tools/).</p>
+<h2>Tool index</h2>
+<h3>Discovery</h3>
 <ul>
-<li>See the screen and read the text on it (vm_screenshot, vm_read_screen).</li>
-<li>Click, type, scroll, and drag with the VM&#x27;s own keyboard and mouse.</li>
-<li>Run commands and move files (vm_run, vm_exec, vm_copy_to_guest, vm_copy_from_guest).</li>
-<li>List and focus windows, open an app or URL, and search files by name.</li>
-<li>Start, stop, pause, clone, and create VMs, and take and revert snapshots.</li>
-<li>Sign in at the login screen without the agent seeing the password.</li>
+<li><code>vm_list</code></li>
+<li><code>vm_status</code></li>
+<li><code>agent_status</code></li>
+<li><code>vm_log</code></li>
+<li><code>vm_doctor</code></li>
+<li><code>vm_changelog</code></li>
+</ul>
+<h3>Screen and input</h3>
+<ul>
+<li><code>vm_screenshot</code></li>
+<li><code>vm_read_screen</code></li>
+<li><code>vm_find_text</code></li>
+<li><code>vm_wait</code></li>
+<li><code>vm_click</code></li>
+<li><code>vm_click_text</code></li>
+<li><code>vm_mouse</code></li>
+<li><code>vm_cursor</code></li>
+<li><code>vm_drag</code></li>
+<li><code>vm_scroll</code></li>
+<li><code>vm_type</code></li>
+<li><code>vm_key</code></li>
+<li><code>vm_send_keys</code></li>
+<li><code>vm_act</code></li>
+<li><code>vm_set_resolution</code></li>
+</ul>
+<h3>Sign-in and secrets</h3>
+<ul>
+<li><code>vm_sign_in</code></li>
+<li><code>vm_set_signin_password</code></li>
+<li><code>vm_type_secret</code></li>
+</ul>
+<h3>Commands and jobs</h3>
+<ul>
+<li><code>vm_run</code></li>
+<li><code>vm_exec</code></li>
+<li><code>vm_job_status</code></li>
+<li><code>vm_job_stop</code></li>
+<li><code>vm_job_list</code></li>
+<li><code>vm_job_prune</code></li>
+</ul>
+<h3>Files and clipboard</h3>
+<ul>
+<li><code>vm_read_file</code></li>
+<li><code>vm_write_file</code></li>
+<li><code>vm_list_dir</code></li>
+<li><code>vm_copy_to_guest</code></li>
+<li><code>vm_copy_from_guest</code></li>
+<li><code>vm_send_to_mac</code></li>
+<li><code>vm_clipboard</code></li>
+<li><code>vm_windows</code></li>
+<li><code>vm_open</code></li>
+<li><code>vm_find_files</code></li>
+</ul>
+<h3>Power</h3>
+<ul>
+<li><code>vm_start</code></li>
+<li><code>vm_stop</code></li>
+<li><code>vm_suspend</code></li>
+<li><code>vm_resume</code></li>
+<li><code>vm_pause</code></li>
+<li><code>vm_restart</code></li>
+<li><code>vm_wait_ready</code></li>
+</ul>
+<h3>Snapshots and notes</h3>
+<ul>
+<li><code>snapshot_list</code></li>
+<li><code>snapshot_create</code></li>
+<li><code>snapshot_revert</code></li>
+<li><code>snapshot_delete</code></li>
+<li><code>agent_notes</code></li>
+</ul>
+<h3>Manage VMs</h3>
+<ul>
+<li><code>vm_create</code></li>
+<li><code>vm_finish_install</code></li>
+<li><code>vm_systems</code></li>
+<li><code>vm_clone</code></li>
+<li><code>vm_delete</code></li>
+<li><code>vm_configure</code></li>
+<li><code>vm_set_headless</code></li>
+<li><code>vm_set_network_condition</code></li>
+<li><code>vm_share_folder</code></li>
+<li><code>vm_unshare_folder</code></li>
+<li><code>vm_port_forward</code></li>
+<li><code>vm_install_tools</code></li>
+<li><code>vm_optimize_windows</code></li>
+<li><code>vm_run_ephemeral</code></li>
 </ul>
 <h2>What it does not do</h2>
 <ul>
@@ -99,11 +181,10 @@
 </ul>
 </main>
 <footer>
-<nav aria-label="Legal"><a href="../../terms/">Terms</a> <a href="../../privacy/">Privacy</a> <a href="../../refund/">Refunds</a> <a href="../../trademark/">Trademark</a> <a href="mailto:chadwickalex@icloud.com">chadwickalex@icloud.com</a></nav>
-<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
-<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
-<p>Sold by Alex Chadwick, an individual doing business as Chadwick Labs. Payments are processed by Polar (Polar Software, Inc.), the merchant of record.</p>
-<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong.</p>
+<nav aria-label="Legal"><a href="../../privacy/">Privacy</a> <a href="../../eula/">EULA</a> <a href="../../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>.</p>
+<p>Parallels is a registered trademark of Parallels International GmbH. VMBridge is not affiliated with or endorsed by Parallels.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are the end user license. The seller is Chadwick Labs. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.</p>
 </footer>
 <script>
 (function(){

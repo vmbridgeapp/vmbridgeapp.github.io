@@ -2,8 +2,8 @@
 """Build the VMBridge site.
 
 The public origin comes from ``VMBRIDGE_SITE_URL`` (default
-https://vmbridgeapp.github.io). Cloudflare Pages at https://vmbridge.pages.dev
-is the documented alternative. Nothing in this tree uses a custom domain.
+https://vmbridge.app). Cloudflare Pages at https://vmbridge.pages.dev is an
+alternative.
 
     python site/build_site.py --out site/out
     VMBRIDGE_SITE_URL=https://vmbridge.pages.dev python site/build_site.py --out site/out
@@ -13,36 +13,30 @@ is the documented alternative. Nothing in this tree uses a custom domain.
 from __future__ import annotations
 
 import argparse
+import datetime
+import email.utils
 import html
 import json
 import os
 import re
 import struct
+import sys
 import zlib
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_BASE = "https://vmbridgeapp.github.io"
+DEFAULT_BASE = "https://vmbridge.app"
 ALTERNATE_BASE = "https://vmbridge.pages.dev"
 GSC_PLACEHOLDER = "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN"
 DEFAULT_CHECKOUT = "https://buy.polar.sh/polar_cl_xQ7772UMU2C5OTxywIp6Sr75YFJqRNYjm1iIW0sAEL8"
-SUPPORT_EMAIL = "chadwickalex@icloud.com"
-SELLER_NAME = "Alex Chadwick"
-SELLER_DBA = "Chadwick Labs"
-MERCHANT = "Polar (Polar Software, Inc.)"
-SOURCE_REPO = "https://github.com/AlexmChadwick/Parallels-Agents"
-RELEASES_URL = SOURCE_REPO + "/releases"
-LICENSE_URL = SOURCE_REPO + "/blob/main/LICENSE"
 X_URL = "https://x.com/vmbridgeapp"
 GITHUB_ORG_URL = "https://github.com/vmbridgeapp"
 TRADEMARK = (
-    "Parallels is a trademark of Parallels International GmbH. "
-    "VMBridge is not affiliated with, endorsed by, or sponsored by "
-    "Parallels International GmbH. VMPal is a product of TablePlus. "
-    "VMBridge is not affiliated with TablePlus."
+    "Parallels is a registered trademark of Parallels International GmbH. "
+    "VMBridge is not affiliated with or endorsed by Parallels."
 )
 PRICE = "9.99"
-UPDATED = "2026-10-16"
+UPDATED = "2026-10-13"
 
 # 5x7 glyphs. Rows are left to right, "1" is ink.
 _GLYPHS: dict[str, tuple[str, ...]] = {
@@ -336,17 +330,11 @@ Give an agent a Parallels Desktop virtual machine. The host needs macOS 14 or la
 
 ## Install the command
 
-```
-git clone https://github.com/AlexmChadwick/Parallels-Agents.git
-cd Parallels-Agents
-./scripts/install.sh
-```
-
-That installs `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are the same command. A notarized DMG ships with the GitHub release when a signed build is published. It is not a file on this website.
+Download the DMG from the VMBridge site, drag VMBridge to Applications, and open it. The app includes the command at `/Applications/VMBridge.app/Contents/Resources/cli/vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases for the same command.
 
 ## Start the trial
 
-Open VMBridge. The price is $9.99 one-time, with a 7-day free trial. The trial is full-featured and starts at first launch on that Mac. Buy opens the Polar checkout. Polar (Polar Software, Inc.) processes the payment as merchant of record.
+Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The price after the trial is $9.99 once. Buy opens the Polar checkout.
 
 ## Connect Claude Code, Codex, or Cursor
 
@@ -371,15 +359,9 @@ Pause all agents from the menu-bar app, or turn off agent control for that VM. E
 
 VMBridge is a macOS app for Parallels Desktop. The host needs macOS 14 or later and Parallels Desktop Pro or Business, because the tools use prlctl and the Parallels Virtualization SDK.
 
-## Developer install
+## Install the app and command
 
-```
-git clone https://github.com/AlexmChadwick/Parallels-Agents.git
-cd Parallels-Agents
-./scripts/install.sh
-```
-
-That installs the `vmbridge` command. `parallels-pro-mcp` and `guest-vm-agents` are the same command.
+Download the DMG from the VMBridge site, drag VMBridge to Applications, and open it. The app includes the `vmbridge` command at `/Applications/VMBridge.app/Contents/Resources/cli/vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases for the same command.
 
 ## Connect an agent
 
@@ -392,44 +374,132 @@ The same connect command covers Claude Desktop, Codex, Cursor, VS Code, Windsurf
 
 ## Where state lives
 
-The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME to move it. PARALLELS_MCP_HOME still works. If the new folder does not exist and an older "Parallels Pro MCP" folder does, that older folder is kept so the trial clock is not reset.
+The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME to move it. PARALLELS_MCP_HOME still works. On first launch an older Application Support folder is moved here, including the license file, so the trial clock is not reset. If that move fails, the older folder is still used.
 """,
-    "trial-and-license": f"""# Trial and license
+    "trial-and-license": """# Trial and license
 
-VMBridge is $9.99 one-time, 7-day free trial. The trial is full-featured. It starts at first launch on that Mac. The start is stored in license.json, in a hidden marker in the same folder, and in the app preference VMBridgeTrialStartedAt. Deleting only one of those copies does not restart the trial. Setting the clock back does not extend it. The license file is not kept in the login Keychain.
+VMBridge is a one-time purchase of $9.99 with a 7-day full-featured free trial. The trial starts at first launch on that Mac. It is stored in license.json in Application Support. Deleting that file alone does not reset the trial: the earliest start is also kept in a hidden .trial-origin file and in the preference VMBridgeTrialStartedAt. Setting the clock back does not extend it.
 
 ## After you buy
 
-The price is $9.99 USD, paid once. It is not a subscription. Buy opens the Polar checkout. Polar (Polar Software, Inc.) is the merchant of record. A license key is checked with Polar's API. After a successful check, the app keeps working offline for 14 days. A refund within 14 days of purchase does not require a reason. Email {SUPPORT_EMAIL}.
+A license key is activated with Polar's customer-portal license-key API. No API token is shipped in the app. After a successful check, the app keeps working offline for 14 days.
 
-## Checkout
+## Store settings
 
-- Checkout {DEFAULT_CHECKOUT}
-- Sold by {SELLER_NAME}, doing business as {SELLER_DBA}
-- Support {SUPPORT_EMAIL}
+These public identifiers are the defaults. Environment variables override them. They are not secrets.
 
-VMBRIDGE_CHECKOUT_URL overrides the checkout link. GUEST_VM_AGENTS_CHECKOUT_URL still works. The customer terms are the Terms of Service on this site. The refund rules are the Refund Policy.
+- Polar organization id e1d27794-4788-4325-8d9c-399c4814fdb3
+- Checkout https://buy.polar.sh/polar_cl_xQ7772UMU2C5OTxywIp6Sr75YFJqRNYjm1iIW0sAEL8
+- A license key looks like VMB-<key>. It can be active on 3 machines. It does not expire.
+
+VMBRIDGE_CHECKOUT_URL and VMBRIDGE_POLAR_ORGANIZATION_ID override the defaults. GUEST_VM_AGENTS_CHECKOUT_URL still works for the checkout URL.
+
+A key whose organization id does not match is rejected. Set VMBRIDGE_POLAR_ORGANIZATION_ID to 0 or placeholder to skip that check. The end user license is available on the EULA page and inside the app. The seller is Chadwick Labs, an individual seller in the United States. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.
 """,
     "mcp-tools": """# MCP tools for a Parallels Desktop VM
 
 VMBridge speaks MCP. An agent on the Mac starts `vmbridge` over stdio. An agent inside a VM uses the daemon on the Parallels Shared or Host-Only network, with a token that works only for that VM.
 
-## What an agent can do
+The complete reference, including every tool, parameter, and default, is on the [MCP tools page](/docs/mcp-tools/).
 
-- See the screen and read the text on it (vm_screenshot, vm_read_screen).
-- Click, type, scroll, and drag with the VM's own keyboard and mouse.
-- Run commands and move files (vm_run, vm_exec, vm_copy_to_guest, vm_copy_from_guest).
-- List and focus windows, open an app or URL, and search files by name.
-- Start, stop, pause, clone, and create VMs, and take and revert snapshots.
-- Sign in at the login screen without the agent seeing the password.
+## Tool index
+
+### Discovery
+
+- `vm_list`
+- `vm_status`
+- `agent_status`
+- `vm_log`
+- `vm_doctor`
+- `vm_changelog`
+
+### Screen and input
+
+- `vm_screenshot`
+- `vm_read_screen`
+- `vm_find_text`
+- `vm_wait`
+- `vm_click`
+- `vm_click_text`
+- `vm_mouse`
+- `vm_cursor`
+- `vm_drag`
+- `vm_scroll`
+- `vm_type`
+- `vm_key`
+- `vm_send_keys`
+- `vm_act`
+- `vm_set_resolution`
+
+### Sign-in and secrets
+
+- `vm_sign_in`
+- `vm_set_signin_password`
+- `vm_type_secret`
+
+### Commands and jobs
+
+- `vm_run`
+- `vm_exec`
+- `vm_job_status`
+- `vm_job_stop`
+- `vm_job_list`
+- `vm_job_prune`
+
+### Files and clipboard
+
+- `vm_read_file`
+- `vm_write_file`
+- `vm_list_dir`
+- `vm_copy_to_guest`
+- `vm_copy_from_guest`
+- `vm_send_to_mac`
+- `vm_clipboard`
+- `vm_windows`
+- `vm_open`
+- `vm_find_files`
+
+### Power
+
+- `vm_start`
+- `vm_stop`
+- `vm_suspend`
+- `vm_resume`
+- `vm_pause`
+- `vm_restart`
+- `vm_wait_ready`
+
+### Snapshots and notes
+
+- `snapshot_list`
+- `snapshot_create`
+- `snapshot_revert`
+- `snapshot_delete`
+- `agent_notes`
+
+### Manage VMs
+
+- `vm_create`
+- `vm_finish_install`
+- `vm_systems`
+- `vm_clone`
+- `vm_delete`
+- `vm_configure`
+- `vm_set_headless`
+- `vm_set_network_condition`
+- `vm_share_folder`
+- `vm_unshare_folder`
+- `vm_port_forward`
+- `vm_install_tools`
+- `vm_optimize_windows`
+- `vm_run_ephemeral`
 
 ## What it does not do
 
 - It does not record video of the VM.
 - It does not read the guest accessibility tree. On-screen text is OCR.
 - It does not rename snapshots. prlctl has no rename.
-- It is not a hypervisor. Parallels Desktop runs the VM.
-""",
+- It is not a hypervisor. Parallels Desktop runs the VM.""",
 }
 
 
@@ -437,11 +507,11 @@ def pages() -> list[dict[str, object]]:
     faqs = [
         (
             "What is VMBridge?",
-            "VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The price is $9.99 one-time, 7-day free trial. The trial is full-featured.",
+            "VMBridge is a macOS app for Parallels Desktop. It gives an AI agent a virtual machine as its own computer over MCP: screen, keyboard, mouse, commands, files, and snapshots. The price is $9.99 once, with a 7-day full-featured free trial.",
         ),
         (
             "Does VMBridge replace Parallels Desktop?",
-            "No. VMBridge drives virtual machines that Parallels Desktop already runs. You need Parallels Desktop Pro or Business on the Mac. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.",
+            "No. VMBridge drives virtual machines that Parallels Desktop already runs. You need Parallels Desktop Pro or Business on the Mac. " + TRADEMARK,
         ),
         (
             "How does Claude Code control a VM?",
@@ -449,19 +519,19 @@ def pages() -> list[dict[str, object]]:
         ),
         (
             "What does the $9.99 purchase include?",
-            "A one-time license key for VMBridge, not a subscription. The price is $9.99 one-time, 7-day free trial. The trial is full-featured and starts at first launch. Buy opens the Polar checkout. Polar (Polar Software, Inc.) is the merchant of record. A validated key keeps working for 14 days without reaching the license server. You can ask for a full refund within 14 days of purchase without giving a reason.",
+            "A one-time license key for VMBridge, not a subscription. It can be active on 3 machines and does not expire. The 7-day trial is full-featured and starts at first launch. A validated key keeps working for 14 days without reaching the license server.",
         ),
         (
-            "How is VMBridge different from VMPal?",
-            "VMPal, from TablePlus, is a VM app with a built-in MCP server. VMBridge is an independent agent layer on Parallels Desktop. It does not include VMPal's hypervisor, Windows engine, or VM file format. See the comparison page for a feature-by-feature map.",
+            "How is VMBridge different from standalone agent VM apps?",
+            "Standalone agent VM apps bundle their own hypervisor. VMBridge is an independent agent layer on Parallels Desktop. It does not include an independent hypervisor, Windows engine, or custom VM file format. See the comparison page for a feature-by-feature map.",
         ),
         (
             "Where is the DMG?",
-            "The notarized disk image is not a file on this website. It ships with the GitHub release when a signed macOS build is published. Until then, install from the source repository with scripts/install.sh.",
+            "Download the notarized disk image from this website, drag VMBridge to Applications, and open it.",
         ),
         (
             "What leaves this Mac?",
-            "The app runs locally. It does not include an analytics or crash-reporting SDK, and it does not send usage telemetry. Activating or validating a license key contacts Polar's API. Guest sign-in passwords stay in a file on the Mac and are not returned by tools or written to the activity log.",
+            "The app does not include an analytics or crash-reporting SDK. Activating a license key sends that key, a label (this Mac's name and a short random id VMBridge creates when first run), and the Polar organization id to api.polar.sh. Validating or deactivating sends the key, the organization id, and an activation id. Creating a Linux or macOS guest can download an install image from that distribution's publisher or a mirror it redirects to, or an IPSW from Apple. When Sparkle.framework is embedded, the app also fetches its update feed. Sign-in passwords stay in a private file on this Mac and are not returned by tools or written to the activity log.",
         ),
     ]
     home_faqs = faqs[:3]
@@ -470,8 +540,8 @@ def pages() -> list[dict[str, object]]:
             "slug": "",
             "nav": "VMBridge",
             "in_nav": False,
-            "title": "VMBridge for Parallels Desktop — let your AI agent drive VMs",
-            "description": "Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $9.99 one-time, 7-day free trial. Works with Claude Code, Codex, and Cursor.",
+            "title": "VMBridge for Parallels Desktop: let your AI agent drive VMs",
+            "description": "Let your AI agent drive Parallels Desktop VMs. VMBridge is an MCP server for macOS 14 or later. $9.99 one-time, with a 7-day full-featured free trial. Works with Claude Code, Codex, and Cursor.",
             "h1": "Let your AI agent drive Parallels Desktop VMs",
             "kind": "home",
             "faqs": home_faqs,
@@ -507,31 +577,31 @@ def pages() -> list[dict[str, object]]:
             "lead": "VMBridge is how an AI agent gets a virtual machine on a Mac that already runs Parallels Desktop.",
         },
         {
-            "slug": "vs-vmpal",
-            "nav": "vs VMPal",
+            "slug": "comparison",
+            "nav": "Comparison",
             "in_nav": True,
-            "title": "VMBridge vs VMPal",
-            "description": "VMBridge and VMPal both give an AI agent a computer over MCP. VMPal is a hypervisor from TablePlus. VMBridge drives Parallels Desktop and is not affiliated with TablePlus.",
-            "h1": "VMBridge compared with VMPal",
+            "title": "VMBridge comparison",
+            "description": "How VMBridge compares with dedicated agent VM tools. VMBridge connects an AI agent to Parallels Desktop over MCP.",
+            "h1": "VMBridge feature comparison",
             "kind": "compare",
-            "lead": "VMPal and VMBridge both expose a virtual machine to an AI agent over MCP. They are different products.",
+            "lead": "VMBridge exposes Parallels Desktop virtual machines to AI agents over MCP.",
         },
         {
             "slug": "pricing",
             "nav": "Pricing",
             "in_nav": True,
             "title": "VMBridge pricing",
-            "description": "VMBridge is $9.99 one-time, 7-day free trial. It is not a subscription. Checkout is Polar. Polar Software, Inc. is the merchant of record.",
+            "description": "VMBridge is a $9.99 one-time purchase for macOS, with a 7-day full-featured free trial. It is not a subscription. A license key is checked with Polar.",
             "h1": "Pricing",
             "kind": "pricing",
-            "lead": "$9.99 one-time, 7-day free trial.",
+            "lead": "VMBridge is sold as a one-time purchase of $9.99, with a 7-day full-featured free trial.",
         },
         {
             "slug": "faq",
             "nav": "FAQ",
             "in_nav": True,
             "title": "VMBridge FAQ",
-            "description": "Answers about VMBridge for Parallels Desktop: the MCP server, the $9.99 one-time price, the 7-day free trial, Claude Code, the DMG, privacy, and how it differs from VMPal.",
+            "description": "Answers about VMBridge for Parallels Desktop: the MCP server, the $9.99 license, the 7-day trial, Claude Code, the DMG, privacy, and feature comparison.",
             "h1": "Questions about VMBridge",
             "kind": "faq",
             "faqs": faqs,
@@ -546,39 +616,21 @@ def pages() -> list[dict[str, object]]:
             "kind": "docs",
         },
         {
-            "slug": "terms",
-            "nav": "Terms",
-            "in_nav": False,
-            "title": "VMBridge terms of service",
-            "description": "Terms of Service for VMBridge. $9.99 one-time, 7-day free trial. Sold by Alex Chadwick, doing business as Chadwick Labs. Payments are processed by Polar.",
-            "h1": "Terms of Service",
-            "kind": "legal",
-        },
-        {
             "slug": "privacy",
             "nav": "Privacy",
             "in_nav": False,
             "title": "VMBridge privacy policy",
-            "description": "VMBridge runs locally on your Mac and does not send usage telemetry. License validation contacts Polar's API. Sold by Alex Chadwick, doing business as Chadwick Labs.",
+            "description": "What VMBridge stores on the Mac, and what a license check sends to Polar. No analytics SDK is included.",
             "h1": "Privacy policy",
-            "kind": "legal",
-        },
-        {
-            "slug": "refund",
-            "nav": "Refunds",
-            "in_nav": False,
-            "title": "VMBridge refund policy",
-            "description": "Refund policy for VMBridge: a full refund within 14 days of purchase, no questions asked. Polar Software, Inc. is the merchant of record.",
-            "h1": "Refund policy",
             "kind": "legal",
         },
         {
             "slug": "eula",
             "nav": "EULA",
             "in_nav": False,
-            "title": "VMBridge software license",
-            "description": "The customer terms for VMBridge are the Terms of Service. The LICENSE file in the source repository is the software license for that code.",
-            "h1": "Software license",
+            "title": "VMBridge end user license",
+            "description": "VMBridge is sold by Chadwick Labs. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app.",
+            "h1": "End user license",
             "kind": "legal",
         },
         {
@@ -586,7 +638,7 @@ def pages() -> list[dict[str, object]]:
             "nav": "Trademark",
             "in_nav": False,
             "title": "VMBridge trademark notice",
-            "description": "Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels or with TablePlus.",
+            "description": "Parallels is a registered trademark of Parallels International GmbH. VMBridge is not affiliated with or endorsed by Parallels.",
             "h1": "Trademark notice",
             "kind": "legal",
         },
@@ -600,7 +652,7 @@ def organization(base: str) -> dict[str, object]:
         "url": base + "/",
         "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
         "logo": base + "/assets/icon.png",
-        "sameAs": [X_URL, GITHUB_ORG_URL, SOURCE_REPO],
+        "sameAs": [X_URL, GITHUB_ORG_URL],
     }
 
 
@@ -618,7 +670,7 @@ def software(base: str) -> dict[str, object]:
             "price": PRICE,
             "priceCurrency": "USD",
             "url": checkout_url(),
-            "description": "$9.99 one-time, 7-day free trial. Not a subscription.",
+            "description": "One-time purchase of $9.99 with a 7-day full-featured free trial. Not a subscription.",
         },
     }
 
@@ -671,7 +723,7 @@ def article_body(page: dict[str, object]) -> str:
 <h2>Where it listens</h2>
 <p>On the Mac, the agent launches <code>vmbridge</code> over stdio. For an agent inside a VM, a daemon listens on 127.0.0.1 and on the Mac's address on the Parallels Shared and Host-Only networks. The default is not every interface on the Mac. A token for one VM is accepted only from that VM.</p>
 <p><code>parallels-pro-mcp</code> and <code>guest-vm-agents</code> start the same server.</p>
-<p>Related: <a href="../claude-code-control-a-vm/">Claude Code control a VM</a>, <a href="../ai-agent-virtual-machine-mac/">an AI agent virtual machine on a Mac</a>, <a href="../vs-vmpal/">VMBridge vs VMPal</a>.</p>
+<p>Related: <a href="../claude-code-control-a-vm/">Claude Code control a VM</a>, <a href="../ai-agent-virtual-machine-mac/">an AI agent virtual machine on a Mac</a>, <a href="../comparison/">feature comparison</a>.</p>
 """
     if slug == "claude-code-control-a-vm":
         return """
@@ -691,62 +743,61 @@ def article_body(page: dict[str, object]) -> str:
 <h2>Which guests?</h2>
 <p>Linux, Windows, and macOS guests that Parallels Desktop can run. Pass <code>vm</code> when more than one VM is on. An agent inside a VM can only see its own VM. Its token is refused from any other address, including a clone.</p>
 <h2>What stays on the Mac?</h2>
-<p>The menu-bar app shows when an agent is working. Settings hold the trial and the license key. Sign-in passwords stay in a file in Application Support. Files an agent sends you land in ~/Downloads/From VMs.</p>
+<p>The menu-bar app shows when an agent is working. Settings hold the trial and the license key. Sign-in passwords stay in a private file on this Mac. Files an agent sends you land in ~/Downloads/From VMs.</p>
 """
     return ""
 
 
 def compare_body() -> str:
     return """
-<p>VMPal (TablePlus) first shipped on 6 October 2026. As of 11 October 2026 the public app was VMPal 0.69. Its headline feature is a built-in MCP server that gives an agent a whole computer. VMBridge brings that kind of agent access to virtual machines you already run in Parallels Desktop. Nothing from VMPal was copied. VMBridge uses Parallels' own SDK and CLI.</p>
-<h2>What is the same idea?</h2>
+<p>VMBridge brings agent access to virtual machines you already run in Parallels Desktop. Its MCP server gives an agent a whole computer using Parallels' own SDK and CLI.</p>
+<h2>What is the core agent workflow?</h2>
 <ul>
 <li>An MCP server the agent can add in one step, including Claude Code, Codex, Cursor, and others.</li>
 <li>The agent sees the display and can click, type, scroll, and drag.</li>
 <li>Commands as the user or as admin, file copy, snapshots, and a stored sign-in password the agent does not receive.</li>
 <li>Per-VM permission to let an agent control that VM, and a global switch for creating and deleting VMs.</li>
 </ul>
-<h2>What is different?</h2>
+<h2>How does VMBridge differ from dedicated hypervisors?</h2>
 <ul>
-<li>VMPal is a hypervisor. VMBridge is not. Parallels Desktop starts the VM, provides the disk format, and owns USB, graphics, and the guest OS installers.</li>
+<li>VMBridge is not a hypervisor. Parallels Desktop starts the VM, provides the disk format, and owns USB, graphics, and the guest OS installers.</li>
 <li>VMBridge can focus a window, open an app or URL, search files by name, report the pointer after it moved it, pause the guest, and read its own activity log. Those tools were added because an agent driving a VM asks for them.</li>
 <li>VMBridge does not record the screen as video. It returns still frames. A burst of images would fill the disk.</li>
-<li>Neither product, as of that October 2026 check, ships the guest accessibility tree. VMBridge uses OCR. VMPal's public tracker listed an accessibility tree as requested, not shipped.</li>
-<li>Snapshot rename is not available. prlctl has no rename command.</li>
+<li>VMBridge uses macOS Vision OCR for text targets on screen.</li>
+<li>Snapshot rename is not available because prlctl has no rename command.</li>
 </ul>
 <h2>Which one is this page about?</h2>
-<p>This page is about VMBridge. It is a factual comparison so you can tell the products apart. It is not a claim that the products are equivalent, and it is not an endorsement of either company.</p>
+<p>This page is about VMBridge. It is a factual overview so you can see how VMBridge provides agent VM capabilities on top of Parallels Desktop.</p>
 """
 
 
-def cta_block(checkout: str) -> str:
+def cta_block(base: str, checkout: str, version: str) -> str:
     return f"""
 <div class="cta">
-<a class="button" href="{esc(RELEASES_URL)}">Download DMG</a>
+<a class="button" href="{esc(base)}/vmbridge-{esc(version)}.dmg">Download DMG</a>
 <a class="button ghost" href="{esc(checkout)}">Buy for $9.99</a>
 </div>
-<p class="fine">$9.99 one-time, 7-day free trial. The notarized DMG is not a file on this site. It ships with the GitHub release when a signed build is published. Buy opens the Polar checkout. {esc(MERCHANT)} processes the payment as merchant of record.</p>
+<p class="fine">Download the notarized DMG from this site. Buy opens the Polar checkout.</p>
 """
 
 
-def pricing_body(checkout: str) -> str:
+def pricing_body(base: str, checkout: str, version: str) -> str:
     return f"""
-<p>The price is <strong>$9.99 USD, paid once</strong>. It is not a subscription. The free trial lasts <strong>7 days</strong> and includes the full app. It starts the first time VMBridge runs on that Mac.</p>
-{cta_block(checkout)}
+<p>The price is <strong>$9.99 USD, paid once</strong>. It is not a subscription. A full-featured trial lasts <strong>7 days</strong> from the first launch on that Mac.</p>
+{cta_block(base, checkout, version)}
 <ul>
-<li>Sold by {esc(SELLER_NAME)}, an individual doing business as {esc(SELLER_DBA)}.</li>
-<li>Payments are processed by {esc(MERCHANT)}, the merchant of record. Polar sends the receipt.</li>
-<li>The trial clock is stored on the Mac in the app's support folder, a hidden marker in that folder, and a preference date. Removing only one copy does not start the trial over. It is not stored in the login Keychain.</li>
+<li>The trial clock is stored in license.json in Application Support. Deleting that file alone does not reset the trial: the earliest start is also kept in a hidden .trial-origin file and in the preference VMBridgeTrialStartedAt.</li>
 <li>Setting the clock forward past the trial, then back, leaves the trial expired.</li>
-<li>After a license key validates, the app keeps working for 14 days if Polar's API cannot be reached, as long as the key was active.</li>
-<li>You can ask for a full refund within 14 days of purchase. You do not have to give a reason. See the <a href="../refund/">refund policy</a>.</li>
-<li>You need macOS 14 or later and Parallels Desktop Pro or Business. VMBridge does not include Parallels Desktop.</li>
+<li>After a license key validates, the app keeps working for 14 days if the license server cannot be reached, as long as the key was active.</li>
+<li>Keys are activated with Polar. The app does not ship an API token.</li>
+<li>You need macOS 14 or later and Parallels Desktop Pro or Business.</li>
 </ul>
-<p>Support is <a href="mailto:{esc(SUPPORT_EMAIL)}">{esc(SUPPORT_EMAIL)}</a>. The sale is covered by the <a href="../terms/">Terms of Service</a> and the <a href="../privacy/">privacy policy</a>.</p>
+<p>The checkout is the VMBridge Polar link. A license key looks like VMB-&lt;key&gt;, can be active on 3 machines, and does not expire. <code>VMBRIDGE_CHECKOUT_URL</code> and <code>VMBRIDGE_POLAR_ORGANIZATION_ID</code> still override those defaults. A key is refused when its organization id does not match.</p>
+<p>The end user license is the <a href="../eula/">EULA</a>. The seller is Chadwick Labs, an individual seller in the United States. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.</p>
 """
 
 
-def home_body(checkout: str) -> str:
+def home_body(base: str, checkout: str, version: str) -> str:
     features = [
         (
             "Screen and input",
@@ -758,7 +809,7 @@ def home_body(checkout: str) -> str:
         ),
         (
             "Virtual machines",
-            "Start, stop, suspend, pause, resume, and restart. <code>vm_create</code> with <code>vm_systems</code> covers Ubuntu, Fedora, Debian, Kali, and macOS IPSW images. Windows is created with the Parallels assistant or an ISO; the agent can drive the installer. There is no unattended installer. <code>vm_run_ephemeral</code> copies a VM, runs, and deletes the copy. Snapshots: <code>snapshot_create</code>, <code>snapshot_revert</code>, <code>snapshot_delete</code>, <code>snapshot_list</code>. There is no rename. <code>vm_sign_in</code> types a stored password the agent never receives. Also: configure, shared folders, port forward, headless, autostart, delete to the Trash, status, list, install Tools, and the activity log.",
+            "Start, stop, suspend, pause, resume, and restart. <code>vm_create</code> with <code>vm_systems</code> covers Ubuntu, Fedora, Debian, Kali, and macOS IPSW images. Ubuntu desktop ISOs can install unattended when <code>generate_password=true</code>; the agent polls <code>vm_finish_install</code> until the guest is ready. Windows and other images still need the agent to drive the installer (Parallels assistant, ISO, or IPSW). <code>vm_run_ephemeral</code> copies a VM, runs, and deletes the copy. Snapshots: <code>snapshot_create</code>, <code>snapshot_revert</code>, <code>snapshot_delete</code>, <code>snapshot_list</code>. There is no rename. <code>vm_sign_in</code> types a stored password the agent never receives. <code>vm_delete</code> (with <code>confirm=true</code>) moves a stopped VM's bundle into the macOS Trash for recovery; <code>permanently=true</code> erases it. Also: configure, shared folders, port forward, headless, autostart, status, list, install Tools, and the activity log.",
         ),
         (
             "Safety",
@@ -773,9 +824,10 @@ def home_body(checkout: str) -> str:
 <ul class="facts">
 <li>macOS 14 or later</li>
 <li>Parallels Desktop Pro or Business</li>
-<li>$9.99 one-time, 7-day free trial</li>
+<li>$9.99 once</li>
+<li>7-day full-featured free trial</li>
 </ul>
-{cta_block(checkout)}
+{cta_block(base, checkout, version)}
 <figure class="demo">
 <div class="poster" role="img" aria-label="Demo video placeholder. A walkthrough of an agent driving a Parallels Desktop virtual machine has not been published.">
 <div class="chrome" aria-hidden="true"><span></span><span></span><span></span><b>VMBridge</b></div>
@@ -799,7 +851,7 @@ def home_body(checkout: str) -> str:
 <li>It does not record video of the VM. Screenshots are still frames.</li>
 <li>It does not read the guest accessibility tree. On-screen text is OCR.</li>
 <li>It does not rename snapshots. prlctl has no rename command.</li>
-<li>It does not pass through USB, and it does not install a guest unattended.</li>
+<li>It does not pass through USB. Unattended guest install is only for Ubuntu via <code>vm_create</code> with <code>generate_password=true</code> and <code>vm_finish_install</code>; other OS images still need a driven installer.</li>
 <li>It is not a hypervisor. Parallels Desktop runs the VM.</li>
 </ul>
 <h2>Read more</h2>
@@ -808,95 +860,44 @@ def home_body(checkout: str) -> str:
 <li><a href="mcp-server-for-parallels-desktop/">MCP server for Parallels Desktop</a></li>
 <li><a href="claude-code-control-a-vm/">Claude Code control a VM</a></li>
 <li><a href="ai-agent-virtual-machine-mac/">AI agent virtual machine on a Mac</a></li>
-<li><a href="vs-vmpal/">VMBridge vs VMPal</a></li>
+<li><a href="comparison/">Feature comparison</a></li>
 <li><a href="pricing/">Pricing</a></li>
-<li><a href="terms/">Terms of Service</a></li>
 <li><a href="privacy/">Privacy policy</a></li>
-<li><a href="refund/">Refund policy</a></li>
 </ul>
 """
 
 
 def legal_body(slug: str) -> str:
-    updated = "16 October 2026"
-    seller = (
-        f"{esc(SELLER_NAME)}, an individual doing business as {esc(SELLER_DBA)}"
-    )
-    contact = f'<a href="mailto:{esc(SUPPORT_EMAIL)}">{esc(SUPPORT_EMAIL)}</a>'
-    if slug == "terms":
-        return f"""
-<p>Last updated {updated}.</p>
-<p>These terms are the agreement for buying and using VMBridge. They are between you and {seller}.</p>
-<h2>The product</h2>
-<p>VMBridge is a macOS app. It lets an AI agent drive virtual machines that Parallels Desktop is already running on that Mac. It is not Parallels Desktop. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels, and it is not affiliated with TablePlus.</p>
-<p>You need macOS 14 or later and Parallels Desktop Pro or Business. You license those yourself. VMBridge does not include them.</p>
-<h2>Price and trial</h2>
-<p>The price is $9.99 USD, paid once. It is not a subscription. There is a 7-day free trial. The trial includes the full app and starts the first time VMBridge runs on that Mac. Deleting the license file, or setting the clock back, does not start the trial over.</p>
-<h2>How you pay</h2>
-<p>The buy button opens <a href="{esc(checkout_url())}">Polar's checkout</a>. {esc(MERCHANT)} is the merchant of record. Polar processes the payment, issues the receipt, and handles the charge. {esc(SELLER_DBA)} sets the price and provides the software and support.</p>
-<h2>The license</h2>
-<p>A purchase gives you a license key so you can keep using VMBridge after the trial. The purchase is one-time. The key is for your own use. You do not receive ownership of the software. Do not resell the key, post it for the public, or use it to run VMBridge as a service for other people.</p>
-<h2>Refunds</h2>
-<p>You can have a full refund within 14 days of the purchase. You do not have to give a reason. The <a href="../refund/">refund policy</a> says how to ask.</p>
-<h2>Support</h2>
-<p>Email {contact}.</p>
-<h2>What we do not promise</h2>
-<p>VMBridge drives Parallels Desktop. We do not promise that every guest operating system, every AI agent, or every future macOS release will work. You decide which virtual machines an agent may control, and you are responsible for the commands it runs.</p>
-<p>The software is provided as it is. To the extent the law allows, {esc(SELLER_DBA)} is not liable for lost files, a damaged guest, or lost profits. Nothing on this page removes a right the law does not let us remove. Polar's own terms apply to the payment Polar processes.</p>
-<h2>Changes</h2>
-<p>If these terms change, the new text will be on this page with a new date. The price and refund window that applied to a purchase are the ones shown at checkout when you paid.</p>
-<h2>Contact</h2>
-<p>{seller}<br>{contact}</p>
-"""
     if slug == "privacy":
-        return f"""
-<p>Last updated {updated}.</p>
-<p>{seller} makes VMBridge. This page says what the app and this website do with information. It is not Parallels Desktop's privacy policy.</p>
-<h2>The app runs on your Mac</h2>
-<p>VMBridge runs locally. It talks to virtual machines that Parallels Desktop is already running on that Mac. The app source does not include an analytics product, a telemetry pipeline, or a crash reporter. It does not send screenshots, commands, files, or a usage log to {esc(SELLER_DBA)}.</p>
-<h2>License validation</h2>
-<p>Activating, validating, or deactivating a license key contacts Polar's API. That request is how the app checks the key. It is not a usage report. After a successful check, the app can keep working offline for 14 days.</p>
-<p>{esc(MERCHANT)} is the merchant of record for a purchase. Polar's privacy policy covers the checkout page, the payment, and the customer record Polar keeps: <a href="https://polar.sh/legal/privacy">polar.sh/legal/privacy</a>.</p>
+        return """
+<p>VMBridge runs on your Mac and talks to virtual machines that Parallels Desktop is already running. This page describes that local app. It is not a promise about Parallels Desktop's own privacy policy.</p>
+<h2>No analytics SDK</h2>
+<p>The app does not include an analytics product, a telemetry pipeline, or a crash reporter such as Sentry. Pages on this website are static files. They do not set a cookie and they do not load a third-party script.</p>
 <h2>What stays on the Mac</h2>
 <ul>
-<li>The trial start and the license record are stored under ~/Library/Application Support/VMBridge, or in the folder named by VMBRIDGE_HOME. The copies are license.json, a hidden trial marker in that folder, and the preference date VMBridgeTrialStartedAt. An older "Parallels Pro MCP" folder is reused when it is the only copy, so a rename does not reset the trial. The license file is not stored in the login Keychain.</li>
-<li>A guest sign-in password is stored in signin-passwords.json in that same folder. Tools do not return that password. The activity log records that a sign-in ran, not the secret.</li>
-<li>The activity log records tool calls on the Mac. Typed text and passwords are not written into it. Command lines are, so keep secrets out of commands.</li>
+<li>Trial state is stored in a license file under ~/Library/Application Support/VMBridge. On first launch an older Application Support folder is moved there, including the license file, so the trial clock is not reset. If that move fails, the older folder is still used.</li>
+<li>A guest sign-in password is stored in a private file in that same folder. Tools do not return that password. The activity log records that a sign-in ran, not the secret.</li>
+<li>The activity log records tool calls. Typed text and passwords are not written into it.</li>
 <li>Files an agent sends to the Mac land in ~/Downloads/From VMs.</li>
 </ul>
-<h2>Other network requests</h2>
-<p>Creating a Linux or macOS guest can download an image from that distribution's publisher, or an IPSW from Apple, because that is how <code>vm_create</code> obtains install media. That download is the guest image, not an account with {esc(SELLER_DBA)}.</p>
-<p>A build that includes the Sparkle update framework checks this site's appcast for a newer version. A build without Sparkle does not make that check. The check looks up an update. It is not a usage report.</p>
-<p>This website is a set of static files. It does not set a cookie and it does not load a third-party script. The theme button stores light or dark in localStorage on your computer. The buy button is a link that leaves this site and opens Polar.</p>
+<h2>What is sent off the Mac</h2>
+<p>Activating, validating, or deactivating a license key sends a request to api.polar.sh, run by Polar, the merchant of record. The request contains the license key, the Polar organization id, and either an activation id or a label for the Mac. On first activation the label is the product name, a name for the Mac, and the first 8 characters of a random id VMBridge creates when first run. The Mac app uses the computer name from Sharing settings, which often includes the owner's name, for example &quot;VMBridge (Jane's MacBook Pro/abcdefgh)&quot;. If no computer name is set, it uses the hostname. The command-line tool uses the Mac's hostname. Later checks send the key with the activation id, or with that label or the product name when no activation id is stored. The app does not ship an API token. A key is accepted only when its organization id matches VMBridge.</p>
+<p>The Buy button in the app and on the website opens Polar's checkout page in your browser. The app does not send your license key to the checkout.</p>
+<p>Creating a Linux or macOS guest can download an install image from the distribution's publisher (releases.ubuntu.com, cdimage.ubuntu.com, fedoraproject.org, download.fedoraproject.org, cdimage.debian.org, or cdimage.kali.org, and the mirrors those publishers redirect to) or an IPSW from Apple (mesu.apple.com and Apple's download servers), because that is how <code>vm_create</code> obtains install media. That download is the guest image, not a VMBridge account.</p>
+<p>A build that includes automatic updates checks the VMBridge update feed and downloads the signed update from it. A build without automatic updates does not make those requests.</p>
 <h2>Inside a virtual machine</h2>
 <p>An agent running inside a guest uses a token that the daemon accepts only from that VM's addresses. The daemon listens on 127.0.0.1 and on the Parallels Shared and Host-Only networks. It does not listen on every interface unless you set that bind address yourself.</p>
-<h2>Contact</h2>
-<p>Questions about this policy: {contact}.</p>
-"""
-    if slug == "refund":
-        return f"""
-<p>Last updated {updated}.</p>
-<p>VMBridge is $9.99 one-time, 7-day free trial. If you buy it and change your mind, you can have a full refund within 14 days of the purchase. You do not have to give a reason.</p>
-<h2>How to ask</h2>
-<p>Email {contact} from the address you used at checkout, or request the refund in Polar. {esc(MERCHANT)} is the merchant of record and processes the refund to the original payment method. Say that you want a refund for VMBridge. You do not need to explain why.</p>
-<h2>When the 14 days start</h2>
-<p>The 14 days start when the purchase is completed, not when the free trial started. The trial does not require a payment. A request on the 14th day is in time.</p>
-<h2>After a refund</h2>
-<p>The license key from that purchase is refunded. Stop using that key. You can delete the app from the Mac.</p>
-<h2>Who sells it</h2>
-<p>{seller}. Polar processes the payment. Questions: {contact}.</p>
 """
     if slug == "eula":
-        return f"""
-<p>The terms of a purchase are the <a href="../terms/">Terms of Service</a>. Refunds are the <a href="../refund/">refund policy</a>. The price is $9.99 one-time, 7-day free trial. The buy button opens Polar's checkout, and {esc(MERCHANT)} is the merchant of record.</p>
-<p>The <a href="{esc(LICENSE_URL)}">LICENSE</a> file in the source repository ({esc(SOURCE_REPO)}) is the software license for that code. Copyright 2026 Alex Chadwick. Portions derived from parallels-pro-mcp-server remain under the MIT License, copyright Jarod Wong. That notice is in LICENSES/MIT-upstream and THIRD_PARTY_NOTICES.</p>
-<p><a href="{esc(LICENSE_URL)}">Read the LICENSE file</a></p>
-"""
+        resource = ROOT / "macos/Sources" / ("Parallels" + "ProMCP") / "Resources/EULA.txt"
+        text = resource.read_text(encoding="utf-8")
+        paragraphs = re.split(r"\n\s*\n", text.strip())
+        rendered = "\n".join(f"<p>{esc(paragraph).replace(chr(10), '<br>')}</p>" for paragraph in paragraphs)
+        return "<p>The same end user license text is inside the app in Settings, Acknowledgements and Legal.</p>\n" + rendered
     return f"""
 <p>{esc(TRADEMARK)}</p>
 <p>"Parallels Desktop" names the hypervisor VMBridge drives. It is not part of the product name. The product name is VMBridge. The tagline is "for Parallels Desktop".</p>
-<p>VMPal is a virtual-machine application from TablePlus. The comparison on this site is factual. VMBridge does not include VMPal code and is not endorsed by TablePlus.</p>
-<p>Nothing on this site grants a license to the Parallels, TablePlus, Claude, or other third-party marks.</p>
+<p>Nothing on this site grants a license to the Parallels, Claude, or other third-party marks.</p>
 """
 
 
@@ -904,14 +905,14 @@ def docs_index() -> str:
     items = [
         ("quickstart", "Quickstart", "Install, connect Claude Code, Codex, or Cursor, and stop the agent."),
         ("install", "Install", "The vmbridge command and where settings are stored."),
-        ("trial-and-license", "Trial and license", "The $9.99 one-time price, the 7-day free trial, and the Polar checkout."),
+        ("trial-and-license", "Trial and license", "The 7-day trial, the $9.99 key, and the store settings."),
         ("mcp-tools", "MCP tools", "What an agent can call, and what VMBridge does not do."),
     ]
     lis = []
     for slug, title, blurb in items:
         href = slug + "/"
         lis.append(
-            f'<li><a href="{esc(href)}">{esc(title)}</a> — {esc(blurb)} '
+            f'<li><a href="{esc(href)}">{esc(title)}</a>: {esc(blurb)} '
             f'<a href="{esc(href)}index.md">Markdown</a></li>'
         )
     return "<ul>\n" + "\n".join(lis) + "\n</ul>\n<p>Plain Markdown for each page is linked above and listed in <a href=\"../llms.txt\">llms.txt</a>.</p>"
@@ -942,14 +943,8 @@ def layout(base: str, page: dict[str, object], body: str, gsc: str, depth: int) 
     gsc_meta = f'<meta name="google-site-verification" content="{esc(gsc)}">'
     og = base + "/assets/og.png"
     legal = []
-    for item_slug, label in (
-        ("terms", "Terms"),
-        ("privacy", "Privacy"),
-        ("refund", "Refunds"),
-        ("trademark", "Trademark"),
-    ):
+    for item_slug, label in (("privacy", "Privacy"), ("eula", "EULA"), ("trademark", "Trademark")):
         legal.append(f'<a href="{esc(prefix + item_slug + "/")}">{label}</a>')
-    legal.append(f'<a href="mailto:{esc(SUPPORT_EMAIL)}">{esc(SUPPORT_EMAIL)}</a>')
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1003,10 +998,9 @@ def layout(base: str, page: dict[str, object], body: str, gsc: str, depth: int) 
 </main>
 <footer>
 <nav aria-label="Legal">{' '.join(legal)}</nav>
-<p><a href="{esc(X_URL)}">@vmbridgeapp</a> on X. Public GitHub organization <a href="{esc(GITHUB_ORG_URL)}">vmbridgeapp</a>. Source of this build: <a href="{esc(SOURCE_REPO)}">AlexmChadwick/Parallels-Agents</a>.</p>
+<p><a href="{esc(X_URL)}">@vmbridgeapp</a> on X. Public GitHub organization <a href="{esc(GITHUB_ORG_URL)}">vmbridgeapp</a>.</p>
 <p>{esc(TRADEMARK)}</p>
-<p>Sold by {esc(SELLER_NAME)}, an individual doing business as {esc(SELLER_DBA)}. Payments are processed by {esc(MERCHANT)}, the merchant of record.</p>
-<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are the end user license. The seller is Chadwick Labs. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.</p>
 </footer>
 <script>
 (function(){{
@@ -1153,15 +1147,13 @@ def llms_txt(base: str) -> str:
     lines = [
         "# VMBridge",
         "",
-        "> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The price is $9.99 USD one-time, 7-day free trial. Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with Parallels.",
+        "> VMBridge is a macOS app for Parallels Desktop. It is an MCP server that gives an AI agent a virtual machine: screen, keyboard, mouse, commands, files, and snapshots. The price is $9.99 USD once, with a 7-day full-featured free trial. Governing law is the State of Connecticut, United States. " + TRADEMARK,
         "",
         "The command is `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases. Default site: "
         + DEFAULT_BASE
         + ". Alternative host: "
         + ALTERNATE_BASE
-        + ". X: @vmbridgeapp. Source repository: "
-        + SOURCE_REPO
-        + ".",
+        + ". X: @vmbridgeapp.",
         "",
         "## Pages",
     ]
@@ -1175,10 +1167,7 @@ def llms_txt(base: str) -> str:
         f"- [Install]({abs_url(base, 'docs/install')}index.md): install the vmbridge command.",
         f"- [Trial and license]({abs_url(base, 'docs/trial-and-license')}index.md): $9.99 one-time and the 7-day trial.",
         f"- [MCP tools]({abs_url(base, 'docs/mcp-tools')}index.md): what an agent can call.",
-        f"- [Full text]({base}/llms-full.txt): quotable summary of the product, price, trial, and VMPal comparison.",
-        "",
-        "## Optional",
-        f"- [Source repository]({SOURCE_REPO}): the fork that contains this site.",
+        f"- [Full text]({base}/llms-full.txt): quotable summary of the product, price, trial, and comparison.",
         "",
     ]
     return "\n".join(lines)
@@ -1194,17 +1183,13 @@ def llms_full(base: str) -> str:
         "",
         "Hero: Let your AI agent drive Parallels Desktop VMs.",
         "",
-        "Price: $9.99 USD one-time, 7-day free trial. The trial is full-featured and starts at first launch. It is not a subscription. Offline use after a successful license check: 14 days. License validation contacts Polar's API. Checkout: "
-        + DEFAULT_CHECKOUT
-        + ". Seller: Alex Chadwick, an individual doing business as Chadwick Labs. Merchant of record: Polar Software, Inc. Support: "
-        + SUPPORT_EMAIL
-        + ". Refunds: full refund within 14 days of purchase, no questions asked. The app runs locally and does not send usage telemetry.",
+        "Price: $9.99 USD, one time. Trial: 7 days, full-featured, starting at first launch. Offline use after a successful license check: 14 days. A license key can be active on 3 machines and does not expire. License checks use Polar's customer-portal license-key API and do not require an API token in the app. The default organization id is e1d27794-4788-4325-8d9c-399c4814fdb3. Checkout: https://buy.polar.sh/polar_cl_xQ7772UMU2C5OTxywIp6Sr75YFJqRNYjm1iIW0sAEL8. Keys look like VMB-<key>. A key whose organization id does not match is rejected. The seller is Chadwick Labs, an individual seller in the United States. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.",
         "",
         "Host requirements: macOS 14 or later, Parallels Desktop Pro or Business. The command is vmbridge. Works with Claude Code, Codex, Cursor, and other MCP clients.",
         "",
         "VMBridge is not a hypervisor. It drives virtual machines that Parallels Desktop runs. It does not record VM video, does not expose a guest accessibility tree (it uses OCR), and cannot rename snapshots because prlctl has no rename.",
         "",
-        "VMPal is a VM application from TablePlus, first released 6 October 2026. Public notes as of 11 October 2026 refer to VMPal 0.69. VMBridge is an independent implementation. It contains no VMPal code and is not affiliated with TablePlus.",
+        "VMBridge is an independent agent layer for Parallels Desktop.",
         "",
         TRADEMARK,
         "",
@@ -1245,13 +1230,78 @@ def sitemap(base: str) -> str:
     return "\n".join(body) + "\n"
 
 
+def build_number(version: str) -> int:
+    """CFBundleVersion for a release, as scripts/build-macos-app.sh derives it.
+
+    MAJOR*10000 + MINOR*100 + PATCH, so it grows with every release.
+    """
+
+    parts = version.split(".")
+    if len(parts) != 3 or not all(part.isdigit() for part in parts):
+        raise ValueError(f"version {version!r} is not MAJOR.MINOR.PATCH")
+    major, minor, patch = (int(part) for part in parts)
+    if minor > 99 or patch > 99:
+        raise ValueError(f"version {version!r}: minor and patch must be below 100")
+    return major * 10000 + minor * 100 + patch
+
+
 def appcast(base: str, version: str) -> str:
     template = (ROOT / "macos" / "Sparkle" / "appcast-template.xml").read_text(encoding="utf-8")
     return (
         template.replace("SITE_BASE_URL", base)
         .replace("VERSION", version)
-        .replace("BUILD", "1")
+        .replace("BUILD", str(build_number(version)))
     )
+
+
+def appcast_publish_problems(text: str, version: str, dmg: Path | None = None) -> list[str]:
+    """Why an appcast is not ready to publish. Empty means ready.
+
+    The site build writes template placeholders. Before publishing, the item
+    needs the real ed25519 signature, the DMG byte length, a real date, and
+    the build number scripts/build-macos-app.sh put in CFBundleVersion.
+    """
+
+    problems: list[str] = []
+    if "ED_SIGNATURE" in text or 'sparkle:edSignature=""' in text:
+        problems.append("the enclosure has no Sparkle ed25519 signature (sign_update the notarized DMG)")
+    length = re.search(r'\blength="([^"]*)"', text)
+    if not length or not length.group(1).isdigit() or int(length.group(1)) <= 0:
+        problems.append("the enclosure length is not the DMG size in bytes")
+    elif dmg is not None and int(length.group(1)) != dmg.stat().st_size:
+        problems.append(f"the enclosure length is {length.group(1)}, expected {dmg.stat().st_size} for {dmg}")
+    if "Thu, 01 Jan 2026 00:00:00 +0000" in text or "<pubDate>" not in text:
+        problems.append("pubDate is still the template date")
+    expected = str(build_number(version))
+    found = re.search(r"<sparkle:version>([^<]*)</sparkle:version>", text)
+    if not found or found.group(1).strip() != expected:
+        got = found.group(1).strip() if found else "missing"
+        problems.append(f"sparkle:version is {got}, expected {expected} for {version}")
+    url = re.search(r'<enclosure\b[^>]*\burl="([^"]*)"', text)
+    if not url or not url.group(1).endswith(f"/vmbridge-{version}.dmg"):
+        got = url.group(1) if url else "missing"
+        problems.append(f"the enclosure url is {got}, expected one ending in /vmbridge-{version}.dmg")
+    if f"<sparkle:shortVersionString>{version}</sparkle:shortVersionString>" not in text:
+        problems.append(f"sparkle:shortVersionString is not {version}")
+    return problems
+
+
+def filled_appcast(base: str, version: str, dmg: Path, signature: str, pubdate: str) -> str:
+    return (
+        appcast(base, version)
+        .replace('sparkle:edSignature="ED_SIGNATURE"', f'sparkle:edSignature="{esc(signature)}"')
+        .replace('length="0"', f'length="{dmg.stat().st_size}"')
+        .replace("Thu, 01 Jan 2026 00:00:00 +0000", pubdate)
+    )
+
+
+def current_version() -> str:
+    version = "1.0.2"
+    init = ROOT / "parallels_mcp" / "__init__.py"
+    for line in init.read_text(encoding="utf-8").splitlines():
+        if line.startswith("__version__"):
+            version = line.split('"')[1]
+    return version
 
 
 def build(out: Path, base: str, gsc: str) -> None:
@@ -1268,15 +1318,14 @@ def build(out: Path, base: str, gsc: str) -> None:
     write_icon(assets / "icon.png")
     write_og(assets / "og.png")
     (out / ".nojekyll").write_text("", encoding="utf-8")
+    host = re.sub(r"^https?://", "", base).split("/", 1)[0].split(":", 1)[0]
+    if not (host.endswith(".github.io") or host.endswith(".pages.dev")):
+        (out / "CNAME").write_text(host + "\n", encoding="utf-8")
     (out / "robots.txt").write_text(robots(base), encoding="utf-8")
     (out / "sitemap.xml").write_text(sitemap(base), encoding="utf-8")
     (out / "llms.txt").write_text(llms_txt(base), encoding="utf-8")
     (out / "llms-full.txt").write_text(llms_full(base), encoding="utf-8")
-    version = "1.0.0"
-    init = ROOT / "parallels_mcp" / "__init__.py"
-    for line in init.read_text(encoding="utf-8").splitlines():
-        if line.startswith("__version__"):
-            version = line.split('"')[1]
+    version = current_version()
     (out / "appcast.xml").write_text(appcast(base, version), encoding="utf-8")
     checkout = checkout_url()
 
@@ -1284,7 +1333,7 @@ def build(out: Path, base: str, gsc: str) -> None:
         slug = str(page["slug"])
         kind = page["kind"]
         if kind == "home":
-            body = home_body(checkout) + "<h2>Common questions</h2>\n" + faq_html(page["faqs"])  # type: ignore[arg-type]
+            body = home_body(base, checkout, version) + "<h2>Common questions</h2>\n" + faq_html(page["faqs"])  # type: ignore[arg-type]
             depth = 0
             target = out / "index.html"
         elif kind == "faq":
@@ -1296,7 +1345,7 @@ def build(out: Path, base: str, gsc: str) -> None:
             depth = 1
             target = out / slug / "index.html"
         elif kind == "pricing":
-            body = f"<p class=\"lede\">{esc(str(page['lead']))}</p>\n" + pricing_body(checkout)
+            body = f"<p class=\"lede\">{esc(str(page['lead']))}</p>\n" + pricing_body(base, checkout, version)
             depth = 1
             target = out / slug / "index.html"
         elif kind == "docs":
@@ -1354,7 +1403,35 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Build the VMBridge static site.")
     parser.add_argument("--out", type=Path, default=ROOT / "site" / "out")
     parser.add_argument("--base-url", default=None, help="Overrides VMBRIDGE_SITE_URL.")
+    parser.add_argument(
+        "--check-appcast",
+        type=Path,
+        default=None,
+        help="Exit 1 unless this appcast is filled in for the current version, then exit.",
+    )
+    parser.add_argument("--write-appcast", type=Path, default=None, help="Write a filled, validated appcast.")
+    parser.add_argument("--dmg", type=Path, default=None, help="DMG used to validate or write an appcast.")
+    parser.add_argument("--signature", default=None, help="Sparkle ed25519 signature for --write-appcast.")
+    parser.add_argument("--pubdate", default=None, help="RFC 2822 date for --write-appcast (default: now in UTC).")
     args = parser.parse_args()
+    if args.check_appcast is not None:
+        version = current_version()
+        problems = appcast_publish_problems(args.check_appcast.read_text(encoding="utf-8"), version, args.dmg)
+        for problem in problems:
+            print(f"error: {args.check_appcast}: {problem}", file=sys.stderr)
+        raise SystemExit(1 if problems else 0)
+    if args.write_appcast is not None:
+        if args.dmg is None or args.signature is None:
+            parser.error("--write-appcast requires --dmg and --signature")
+        pubdate = args.pubdate or email.utils.format_datetime(datetime.datetime.now(datetime.timezone.utc))
+        text = filled_appcast(site_base(args.base_url), current_version(), args.dmg, args.signature, pubdate)
+        problems = appcast_publish_problems(text, current_version(), args.dmg)
+        for problem in problems:
+            print(f"error: {args.write_appcast}: {problem}", file=sys.stderr)
+        if problems:
+            raise SystemExit(1)
+        args.write_appcast.write_text(text, encoding="utf-8")
+        return
     gsc = os.environ.get("VMBRIDGE_GSC_VERIFICATION", "").strip() or GSC_PLACEHOLDER
     build(args.out, site_base(args.base_url), gsc)
 

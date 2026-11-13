@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>VMBridge comparison</title>
+<meta name="description" content="How VMBridge compares with dedicated agent VM tools. VMBridge connects an AI agent to Parallels Desktop over MCP.">
+<link rel="canonical" href="https://vmbridge.app/comparison/">
+<meta name="theme-color" content="#0e3b32">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="VMBridge">
+<meta property="og:title" content="VMBridge comparison">
+<meta property="og:description" content="How VMBridge compares with dedicated agent VM tools. VMBridge connects an AI agent to Parallels Desktop over MCP.">
+<meta property="og:url" content="https://vmbridge.app/comparison/">
+<meta property="og:image" content="https://vmbridge.app/assets/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="VMBridge">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@vmbridgeapp">
+<meta name="twitter:title" content="VMBridge comparison">
+<meta name="twitter:description" content="How VMBridge compares with dedicated agent VM tools. VMBridge connects an AI agent to Parallels Desktop over MCP.">
+<meta name="twitter:image" content="https://vmbridge.app/assets/og.png">
+<meta name="twitter:image:alt" content="VMBridge">
+<meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
+<link rel="icon" href="../assets/icon.png" type="image/png">
+<link rel="stylesheet" href="../assets/site.css">
+<script>
+(function(){try{var t=localStorage.getItem("vmbridge-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);}catch(e){}})();
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "name": "VMBridge",
+      "url": "https://vmbridge.app/",
+      "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
+      "logo": "https://vmbridge.app/assets/icon.png",
+      "sameAs": [
+        "https://x.com/vmbridgeapp",
+        "https://github.com/vmbridgeapp"
+      ]
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "VMBridge",
+          "item": "https://vmbridge.app/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "VMBridge feature comparison",
+          "item": "https://vmbridge.app/comparison/"
+        }
+      ]
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<header class="site">
+<a class="brand" href="../">
+<img src="../assets/icon.png" width="32" height="32" alt="VMBridge">
+<span>VMBridge <small>for Parallels Desktop</small></span>
+</a>
+<nav aria-label="Primary">
+<a href="../comparison/" aria-current="page">Comparison</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
+</nav>
+<button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
+</header>
+<main id="content">
+<nav class="crumbs" aria-label="Breadcrumb"><a href="../">VMBridge</a> <span aria-hidden="true">/</span> <span>VMBridge feature comparison</span></nav>
+<h1>VMBridge feature comparison</h1>
+<p class="lede">VMBridge exposes Parallels Desktop virtual machines to AI agents over MCP.</p>
+
+<p>VMBridge brings agent access to virtual machines you already run in Parallels Desktop. Its MCP server gives an agent a whole computer using Parallels' own SDK and CLI.</p>
+<h2>What is the core agent workflow?</h2>
+<ul>
+<li>An MCP server the agent can add in one step, including Claude Code, Codex, Cursor, and others.</li>
+<li>The agent sees the display and can click, type, scroll, and drag.</li>
+<li>Commands as the user or as admin, file copy, snapshots, and a stored sign-in password the agent does not receive.</li>
+<li>Per-VM permission to let an agent control that VM, and a global switch for creating and deleting VMs.</li>
+</ul>
+<h2>How does VMBridge differ from dedicated hypervisors?</h2>
+<ul>
+<li>VMBridge is not a hypervisor. Parallels Desktop starts the VM, provides the disk format, and owns USB, graphics, and the guest OS installers.</li>
+<li>VMBridge can focus a window, open an app or URL, search files by name, report the pointer after it moved it, pause the guest, and read its own activity log. Those tools were added because an agent driving a VM asks for them.</li>
+<li>VMBridge does not record the screen as video. It returns still frames. A burst of images would fill the disk.</li>
+<li>VMBridge uses macOS Vision OCR for text targets on screen.</li>
+<li>Snapshot rename is not available because prlctl has no rename command.</li>
+</ul>
+<h2>Which one is this page about?</h2>
+<p>This page is about VMBridge. It is a factual overview so you can see how VMBridge provides agent VM capabilities on top of Parallels Desktop.</p>
+
+</main>
+<footer>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>.</p>
+<p>Parallels is a registered trademark of Parallels International GmbH. VMBridge is not affiliated with or endorsed by Parallels.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are the end user license. The seller is Chadwick Labs. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.</p>
+</footer>
+<script>
+(function(){
+  var root=document.documentElement, button=document.querySelector("[data-theme-toggle]");
+  function current(){
+    var set=root.getAttribute("data-theme");
+    if(set==="light"||set==="dark") return set;
+    return window.matchMedia("(prefers-color-scheme: dark)").matches?"dark":"light";
+  }
+  function paint(){
+    if(!button) return;
+    var mode=current();
+    button.textContent=mode==="dark"?"Light":"Dark";
+    button.setAttribute("aria-pressed", mode==="dark"?"true":"false");
+  }
+  paint();
+  if(button) button.addEventListener("click", function(){
+    var next=current()==="dark"?"light":"dark";
+    root.setAttribute("data-theme", next);
+    try{localStorage.setItem("vmbridge-theme", next);}catch(e){}
+    paint();
+  });
+})();
+</script>
+</body>
+</html>

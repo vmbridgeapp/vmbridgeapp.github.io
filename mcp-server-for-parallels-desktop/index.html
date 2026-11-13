@@ -5,14 +5,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MCP server for Parallels Desktop</title>
 <meta name="description" content="VMBridge is an MCP server for Parallels Desktop. Agents see the VM screen, type, click, run commands, and move files without touching the Mac desktop.">
-<link rel="canonical" href="https://vmbridgeapp.github.io/mcp-server-for-parallels-desktop/">
+<link rel="canonical" href="https://vmbridge.app/mcp-server-for-parallels-desktop/">
 <meta name="theme-color" content="#0e3b32">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="VMBridge">
 <meta property="og:title" content="MCP server for Parallels Desktop">
 <meta property="og:description" content="VMBridge is an MCP server for Parallels Desktop. Agents see the VM screen, type, click, run commands, and move files without touching the Mac desktop.">
-<meta property="og:url" content="https://vmbridgeapp.github.io/mcp-server-for-parallels-desktop/">
-<meta property="og:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta property="og:url" content="https://vmbridge.app/mcp-server-for-parallels-desktop/">
+<meta property="og:image" content="https://vmbridge.app/assets/og.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="VMBridge">
@@ -20,7 +20,7 @@
 <meta name="twitter:site" content="@vmbridgeapp">
 <meta name="twitter:title" content="MCP server for Parallels Desktop">
 <meta name="twitter:description" content="VMBridge is an MCP server for Parallels Desktop. Agents see the VM screen, type, click, run commands, and move files without touching the Mac desktop.">
-<meta name="twitter:image" content="https://vmbridgeapp.github.io/assets/og.png">
+<meta name="twitter:image" content="https://vmbridge.app/assets/og.png">
 <meta name="twitter:image:alt" content="VMBridge">
 <meta name="google-site-verification" content="REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN">
 <link rel="icon" href="../assets/icon.png" type="image/png">
@@ -35,13 +35,12 @@
     {
       "@type": "Organization",
       "name": "VMBridge",
-      "url": "https://vmbridgeapp.github.io/",
+      "url": "https://vmbridge.app/",
       "description": "VMBridge for Parallels Desktop. An MCP server and macOS app that lets an AI agent drive a virtual machine.",
-      "logo": "https://vmbridgeapp.github.io/assets/icon.png",
+      "logo": "https://vmbridge.app/assets/icon.png",
       "sameAs": [
         "https://x.com/vmbridgeapp",
-        "https://github.com/vmbridgeapp",
-        "https://github.com/AlexmChadwick/Parallels-Agents"
+        "https://github.com/vmbridgeapp"
       ]
     },
     {
@@ -51,13 +50,13 @@
           "@type": "ListItem",
           "position": 1,
           "name": "VMBridge",
-          "item": "https://vmbridgeapp.github.io/"
+          "item": "https://vmbridge.app/"
         },
         {
           "@type": "ListItem",
           "position": 2,
           "name": "MCP server for Parallels Desktop",
-          "item": "https://vmbridgeapp.github.io/mcp-server-for-parallels-desktop/"
+          "item": "https://vmbridge.app/mcp-server-for-parallels-desktop/"
         }
       ]
     }
@@ -73,7 +72,7 @@
 <span>VMBridge <small>for Parallels Desktop</small></span>
 </a>
 <nav aria-label="Primary">
-<a href="../vs-vmpal/">vs VMPal</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
+<a href="../comparison/">Comparison</a><a href="../pricing/">Pricing</a><a href="../faq/">FAQ</a><a href="../docs/">Docs</a>
 </nav>
 <button type="button" class="theme" data-theme-toggle aria-pressed="false">Theme</button>
 </header>
@@ -93,15 +92,14 @@
 <h2>Where it listens</h2>
 <p>On the Mac, the agent launches <code>vmbridge</code> over stdio. For an agent inside a VM, a daemon listens on 127.0.0.1 and on the Mac's address on the Parallels Shared and Host-Only networks. The default is not every interface on the Mac. A token for one VM is accepted only from that VM.</p>
 <p><code>parallels-pro-mcp</code> and <code>guest-vm-agents</code> start the same server.</p>
-<p>Related: <a href="../claude-code-control-a-vm/">Claude Code control a VM</a>, <a href="../ai-agent-virtual-machine-mac/">an AI agent virtual machine on a Mac</a>, <a href="../vs-vmpal/">VMBridge vs VMPal</a>.</p>
+<p>Related: <a href="../claude-code-control-a-vm/">Claude Code control a VM</a>, <a href="../ai-agent-virtual-machine-mac/">an AI agent virtual machine on a Mac</a>, <a href="../comparison/">feature comparison</a>.</p>
 
 </main>
 <footer>
-<nav aria-label="Legal"><a href="../terms/">Terms</a> <a href="../privacy/">Privacy</a> <a href="../refund/">Refunds</a> <a href="../trademark/">Trademark</a> <a href="mailto:chadwickalex@icloud.com">chadwickalex@icloud.com</a></nav>
-<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>. Source of this build: <a href="https://github.com/AlexmChadwick/Parallels-Agents">AlexmChadwick/Parallels-Agents</a>.</p>
-<p>Parallels is a trademark of Parallels International GmbH. VMBridge is not affiliated with, endorsed by, or sponsored by Parallels International GmbH. VMPal is a product of TablePlus. VMBridge is not affiliated with TablePlus.</p>
-<p>Sold by Alex Chadwick, an individual doing business as Chadwick Labs. Payments are processed by Polar (Polar Software, Inc.), the merchant of record.</p>
-<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong.</p>
+<nav aria-label="Legal"><a href="../privacy/">Privacy</a> <a href="../eula/">EULA</a> <a href="../trademark/">Trademark</a></nav>
+<p><a href="https://x.com/vmbridgeapp">@vmbridgeapp</a> on X. Public GitHub organization <a href="https://github.com/vmbridgeapp">vmbridgeapp</a>.</p>
+<p>Parallels is a registered trademark of Parallels International GmbH. VMBridge is not affiliated with or endorsed by Parallels.</p>
+<p>Upstream portions of the software are MIT-licensed, copyright Jarod Wong. The commercial terms are the end user license. The seller is Chadwick Labs. Polar Software, Inc. is the merchant of record. Support is support@vmbridge.app. Governing law is the State of Connecticut, United States.</p>
 </footer>
 <script>
 (function(){

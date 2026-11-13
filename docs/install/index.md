@@ -2,15 +2,9 @@
 
 VMBridge is a macOS app for Parallels Desktop. The host needs macOS 14 or later and Parallels Desktop Pro or Business, because the tools use prlctl and the Parallels Virtualization SDK.
 
-## Developer install
+## Install the app and command
 
-```
-git clone https://github.com/AlexmChadwick/Parallels-Agents.git
-cd Parallels-Agents
-./scripts/install.sh
-```
-
-That installs the `vmbridge` command. `parallels-pro-mcp` and `guest-vm-agents` are the same command.
+Download the DMG from the VMBridge site, drag VMBridge to Applications, and open it. The app includes the `vmbridge` command at `/Applications/VMBridge.app/Contents/Resources/cli/vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases for the same command.
 
 ## Connect an agent
 
@@ -23,4 +17,4 @@ The same connect command covers Claude Desktop, Codex, Cursor, VS Code, Windsurf
 
 ## Where state lives
 
-The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME to move it. PARALLELS_MCP_HOME still works. If the new folder does not exist and an older "Parallels Pro MCP" folder does, that older folder is kept so the trial clock is not reset.
+The default folder is ~/Library/Application Support/VMBridge. Set VMBRIDGE_HOME to move it. PARALLELS_MCP_HOME still works. On first launch an older Application Support folder is moved here, including the license file, so the trial clock is not reset. If that move fails, the older folder is still used.

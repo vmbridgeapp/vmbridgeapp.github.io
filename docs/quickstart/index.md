@@ -4,17 +4,11 @@ Give an agent a Parallels Desktop virtual machine. The host needs macOS 14 or la
 
 ## Install the command
 
-```
-git clone https://github.com/AlexmChadwick/Parallels-Agents.git
-cd Parallels-Agents
-./scripts/install.sh
-```
-
-That installs `vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are the same command. A notarized DMG ships with the GitHub release when a signed build is published. It is not a file on this website.
+Download the DMG from the VMBridge site, drag VMBridge to Applications, and open it. The app includes the command at `/Applications/VMBridge.app/Contents/Resources/cli/vmbridge`. `parallels-pro-mcp` and `guest-vm-agents` are aliases for the same command.
 
 ## Start the trial
 
-Open VMBridge. The price is $9.99 one-time, with a 7-day free trial. The trial is full-featured and starts at first launch on that Mac. Buy opens the Polar checkout. Polar (Polar Software, Inc.) processes the payment as merchant of record.
+Open VMBridge. The 7-day full-featured trial starts at first launch on that Mac. The price after the trial is $9.99 once. Buy opens the Polar checkout.
 
 ## Connect Claude Code, Codex, or Cursor
 
